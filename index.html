@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>I 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ora Laundry Service</title>
@@ -378,4 +378,541 @@
                     <span class="font-bold text-emerald-600 text-sm">+R200</span>
                 </button>
             </div>
-            <p class="text-[10px] text-center text-gray-400 mt-2"><i class="fas fa-inf
+            <p class="text-[10px] text-center text-gray-400 mt-2"><i class="fas fa-info-circle mr-1"></i> Tap an add-on, then select your plan above.</p>
+        </div>
+    </section>
+
+    <!-- On Demand Section -->
+    <section id="on-demand" class="pb-20 container mx-auto px-4 relative z-10">
+        <div class="text-center mb-8">
+            <h2 class="text-xl md:text-2xl font-bold text-slate-800">On Demand Services</h2>
+            <p class="text-gray-500 mt-1 text-xs">Single items, cleaned to perfection.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-7xl mx-auto">
+            <!-- Blanket Card -->
+            <div onclick="openModal('Blanket Cleaning', '149', 'blanket')" class="glass-card p-5 flex flex-col text-center relative border border-orange-200 overflow-hidden group">
+                <div class="absolute top-0 right-0 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">HOT DEAL</div>
+                
+                <h3 class="text-xl font-bold text-slate-900 mb-1">Blanket Cleaning</h3>
+                <p class="text-[10px] text-gray-400 mb-3 uppercase tracking-wider">Heavy Duty Wash</p>
+
+                <div class="flex items-baseline justify-center gap-1 mb-5">
+                    <span class="text-3xl font-bold text-orange-600">R 149</span>
+                    <span class="text-sm font-medium text-gray-500">/item</span>
+                </div>
+
+                <div class="bg-orange-50 rounded-xl p-3 mb-4 border border-orange-100 relative z-10" onclick="event.stopPropagation()">
+                    <p class="text-[10px] font-bold text-orange-800 mb-2 uppercase tracking-wide"><i class="fas fa-tags"></i> Bulk Specials</p>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button onclick="openModal('2 Blankets', '223', 'simple')" class="py-2 bg-white border border-orange-200 rounded-lg text-[10px] font-bold text-slate-700 active:bg-orange-500 active:text-white transition">2 @ R223</button>
+                        <button onclick="openModal('3 Blankets', '335', 'simple')" class="py-2 bg-white border border-orange-200 rounded-lg text-[10px] font-bold text-slate-700 active:bg-orange-500 active:text-white transition">3 @ R335</button>
+                        <button onclick="openModal('4 Blankets', '447', 'simple')" class="py-2 bg-white border border-orange-200 rounded-lg text-[10px] font-bold text-slate-700 active:bg-orange-500 active:text-white transition">4 @ R447</button>
+                    </div>
+                </div>
+                
+                <div class="mt-auto w-full py-3 bg-slate-900 text-white text-center font-bold rounded-xl group-active:bg-slate-700 transition shadow-md">Book 1 Blanket</div>
+            </div>
+
+            <!-- Shoe Cleaning Card -->
+            <div onclick="openModal('Shoe Cleaning', '99', 'shoe')" class="glass-card p-5 flex flex-col text-center relative border border-cyan-200 overflow-hidden group">
+                <div class="absolute top-0 right-0 bg-cyan-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">FRESH KICKS</div>
+
+                <h3 class="text-xl font-bold text-slate-900 mb-1">Shoe Cleaning</h3>
+                <p class="text-[10px] text-gray-400 mb-3 uppercase tracking-wider">Deep Clean & Dry</p>
+
+                <div class="flex items-baseline justify-center gap-1 mb-5">
+                    <span class="text-3xl font-bold text-cyan-600">R 99</span>
+                    <span class="text-sm font-medium text-gray-500">/pair</span>
+                </div>
+
+                <!-- Bulk Discount Banner -->
+                <div class="bg-cyan-50 rounded-xl p-3 mb-4 border border-cyan-100 relative z-10" onclick="event.stopPropagation()">
+                    <p class="text-[10px] font-bold text-cyan-800 mb-2 uppercase tracking-wide"><i class="fas fa-tags"></i> Bulk Special</p>
+                    <button onclick="openModal('Shoe Cleaning', '99', 'shoe')" class="w-full py-2 bg-white border border-cyan-200 rounded-lg text-xs font-bold text-slate-700 active:bg-cyan-600 active:text-white transition shadow-sm">
+                        Get 30% OFF on 5+ Pairs!
+                    </button>
+                </div>
+                
+                <div class="mt-auto w-full py-3 bg-slate-900 text-white text-center font-bold rounded-xl group-active:bg-slate-700 transition shadow-md">Book 1 Pair</div>
+            </div>
+
+            <!-- Ironing Card -->
+            <div onclick="openModal('Ironing Service', '12', 'ironing')" class="glass-card p-5 flex flex-col text-center relative border border-indigo-200 overflow-hidden group">
+                <div class="absolute top-0 right-0 bg-indigo-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">CRISP LOOK</div>
+
+                <h3 class="text-xl font-bold text-slate-900 mb-1">Ironing / Pressing</h3>
+                <p class="text-[10px] text-gray-400 mb-3 uppercase tracking-wider">Professional Finish</p>
+
+                <div class="flex items-baseline justify-center gap-1 mb-5">
+                    <span class="text-3xl font-bold text-indigo-600">R 12</span>
+                    <span class="text-sm font-medium text-gray-500">/item</span>
+                </div>
+                
+                <div class="bg-indigo-50 rounded-xl p-3 mb-4 border border-indigo-100">
+                    <p class="text-[10px] font-bold text-indigo-800 mb-1 uppercase tracking-wide"><i class="fas fa-info-circle"></i> Info</p>
+                    <p class="text-xs text-indigo-700">Perfect for shirts, trousers, and delicate items.</p>
+                </div>
+
+                <div class="mt-auto w-full py-3 bg-slate-900 text-white text-center font-bold rounded-xl group-active:bg-slate-700 transition shadow-md">Book Ironing</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 relative z-10 pb-24">
+        <div class="container mx-auto px-4">
+            <h2 class="text-lg font-bold text-slate-900 mb-5">Contact Us</h2>
+            
+            <div class="flex flex-col items-center justify-center gap-3 mb-6">
+                <!-- Phone Call Link -->
+                <a href="tel:0734194517" class="text-base font-bold text-slate-700 hover:text-slate-900 bg-white px-5 py-2 rounded-full shadow-sm hover:shadow-md transition active:scale-95">
+                    <i class="fas fa-phone mr-2 text-slate-400"></i> 073 419 4517
+                </a>
+                
+                <!-- WhatsApp Link -->
+                <a href="https://wa.me/27847916397" class="text-base font-bold text-slate-700 hover:text-green-600 bg-white px-5 py-2 rounded-full shadow-sm hover:shadow-md transition active:scale-95">
+                    <i class="fab fa-whatsapp mr-2 text-green-500"></i> 084 791 6397
+                </a>
+            </div>
+
+            <!-- Share Location Link -->
+            <div onclick="shareLocation()" class="free-delivery-text text-lg font-bold mb-2 cursor-pointer hover:text-green-700 transition flex items-center justify-center gap-2 group active:scale-95 select-none">
+                <i class="fas fa-truck-fast"></i> 
+                <span>All Deliveries are Free</span>
+                <i class="fas fa-location-dot text-sm ml-1 opacity-50 group-hover:opacity-100 animate-pulse"></i>
+            </div>
+            
+            <div class="mt-4 text-gray-400 text-[10px]">
+                © 2023 Ora Laundry Service. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="fixed inset-0 bg-slate-900/50 z-50 hidden flex items-center justify-center p-4 backdrop-blur-none transition-opacity duration-300">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform transition-all scale-95 opacity-0 modal-scroll" id="modalContent">
+            
+            <div class="p-4 border-b border-gray-100 flex justify-between items-center sticky top-0 bg-white z-10 rounded-t-2xl">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800">Booking Details</h3>
+                    <p class="text-xs text-orange-500 font-bold" id="modalPackageName">Package Name</p>
+                </div>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 active:bg-gray-200 transition">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="p-5">
+                <p class="text-sm text-gray-500 mb-4 bg-slate-50 p-3 rounded-lg border border-slate-100">
+                    You are selecting the <span id="modalPackageText" class="font-bold text-gray-800"></span> package.
+                </p>
+
+                <!-- Quantity Selector (Visible for On-Demand) -->
+                <div id="modalQuantitySection" class="hidden mb-6 text-center">
+                    <label class="block text-xs font-bold uppercase text-gray-500 mb-2">How many items?</label>
+                    <div class="inline-flex items-center justify-center bg-gray-100 rounded-xl p-1">
+                        <button type="button" onclick="adjustQuantity(-1)" class="qty-btn bg-white shadow-sm text-gray-600 active:bg-gray-200 text-lg">-</button>
+                        <span id="quantityDisplay" class="w-12 text-center font-bold text-xl text-slate-800">1</span>
+                        <button type="button" onclick="adjustQuantity(1)" class="qty-btn bg-white shadow-sm text-gray-600 active:bg-gray-200 text-lg">+</button>
+                    </div>
+                    <!-- Dynamic Discount Badge -->
+                    <div id="discountBadge" class="hidden mt-2">
+                        <span id="discountText" class="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-full">
+                            <i class="fas fa-tag mr-1"></i> Bulk Discount Applied!
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Add-ons Section (Monthly Only) -->
+                <div id="modalAddons" class="hidden border-t border-b border-gray-100 py-3 my-3">
+                    <p class="text-xs font-bold uppercase text-gray-500 mb-3 ml-1">Recurring Plan Add-ons</p>
+                    
+                    <!-- Monthly: Blanket -->
+                    <div class="flex items-center justify-between p-2 mb-2 rounded-lg border border-gray-200 bg-white">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-gray-800">Add Blanket (Monthly)</span>
+                            <span class="text-xs text-indigo-600 font-bold" id="price-blanket-monthly">+R150</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div onclick="updateAddonQuantity('blanket-monthly', -1)" class="qty-btn bg-gray-100 active:bg-gray-200 text-gray-600">-</div>
+                            <span id="qty-blanket-monthly" class="w-6 text-center font-bold text-sm text-slate-800">0</span>
+                            <div onclick="updateAddonQuantity('blanket-monthly', 1)" class="qty-btn bg-gray-100 active:bg-gray-200 text-gray-600">+</div>
+                        </div>
+                    </div>
+
+                    <!-- Monthly: Shoes -->
+                    <div class="flex items-center justify-between p-2 mb-2 rounded-lg border border-gray-200 bg-white">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-gray-800">Add Shoes (4 pairs)</span>
+                            <span class="text-xs text-cyan-600 font-bold" id="price-shoes-monthly">+R200</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div onclick="updateAddonQuantity('shoes-monthly', -1)" class="qty-btn bg-gray-100 active:bg-gray-200 text-gray-600">-</div>
+                            <span id="qty-shoes-monthly" class="w-6 text-center font-bold text-sm text-slate-800">0</span>
+                            <div onclick="updateAddonQuantity('shoes-monthly', 1)" class="qty-btn bg-gray-100 active:bg-gray-200 text-gray-600">+</div>
+                        </div>
+                    </div>
+
+                    <!-- Monthly: Basket -->
+                    <div class="flex items-center justify-between p-2 mb-2 rounded-lg border border-gray-200 bg-white">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-gray-800">Extra Basket</span>
+                            <span class="text-xs text-emerald-600 font-bold" id="price-basket-monthly">+R200</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div onclick="updateAddonQuantity('basket-monthly', -1)" class="qty-btn bg-gray-100 active:bg-gray-200 text-gray-600">-</div>
+                            <span id="qty-basket-monthly" class="w-6 text-center font-bold text-sm text-slate-800">0</span>
+                            <div onclick="updateAddonQuantity('basket-monthly', 1)" class="qty-btn bg-gray-100 active:bg-gray-200 text-gray-600">+</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <form id="bookingForm" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-500 mb-1 ml-1">Full Name</label>
+                        <input type="text" id="customerName" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-slate-800 focus:border-slate-800 outline-none transition text-sm" placeholder="e.g. John Doe">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-500 mb-1 ml-1">Phone Number</label>
+                        <input type="tel" id="customerPhone" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-slate-800 focus:border-slate-800 outline-none transition text-sm" placeholder="e.g. 082 123 4567">
+                    </div>
+
+                    <input type="hidden" id="selectedPrice" value="">
+                    <input type="hidden" id="selectedPackage" value="">
+                    
+                    <div class="pt-2 flex flex-col gap-3">
+                        <button type="button" onclick="processAction('pay')" class="w-full py-3.5 bg-slate-900 text-white font-bold rounded-xl active:bg-slate-800 transition shadow-lg flex justify-center items-center gap-2 group">
+                            <span>Pay R<span id="payButtonPrice">0</span> Now</span>
+                            <i class="fas fa-lock text-xs opacity-50"></i>
+                        </button>
+
+                        <div class="relative flex py-1 items-center">
+                            <div class="flex-grow border-t border-gray-200"></div>
+                            <span class="flex-shrink-0 mx-4 text-gray-300 text-xs font-semibold">OR</span>
+                            <div class="flex-grow border-t border-gray-200"></div>
+                        </div>
+
+                        <button type="button" onclick="processAction('inquire')" class="w-full py-3.5 border-2 border-green-500 text-green-600 font-bold rounded-xl active:bg-green-50 transition flex justify-center items-center gap-2">
+                            <span>Book via WhatsApp</span>
+                            <i class="fab fa-whatsapp text-lg"></i>
+                        </button>
+                    </div>
+                    
+                    <p class="text-[10px] text-center text-gray-400 mt-2">
+                        <i class="fas fa-shield-alt mr-1"></i> Secure payment
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('bookingModal');
+        const modalContent = document.getElementById('modalContent');
+        const body = document.body;
+        const modalAddons = document.getElementById('modalAddons');
+        const modalQuantitySection = document.getElementById('modalQuantitySection');
+        const quantityDisplay = document.getElementById('quantityDisplay');
+        const discountBadge = document.getElementById('discountBadge');
+        const discountText = document.getElementById('discountText');
+
+        let preselectedAddon = null;
+        let currentBasePrice = 0;
+        let currentMode = 'simple'; 
+        let currentQuantity = 1;
+
+        // Data structure to track addon quantities
+        let addonData = {
+            'blanket-monthly': { qty: 0, price: 150, name: 'Blanket (Monthly)' },
+            'shoes-monthly': { qty: 0, price: 200, name: 'Shoes (4 pairs)' },
+            'basket-monthly': { qty: 0, price: 200, name: 'Extra Basket' }
+        };
+
+        function selectPreAddon(name) {
+            preselectedAddon = name;
+            document.getElementById('packages').scrollIntoView({ behavior: 'smooth' });
+            showToast(`"${name}" selected! Now choose a monthly plan.`);
+        }
+
+        function openModal(packageName, price, mode = 'simple') {
+            currentBasePrice = parseInt(price.replace(/\s/g, '')); 
+            currentMode = mode;
+            currentQuantity = 1; 
+            
+            // Reset Add-ons
+            for (let key in addonData) {
+                addonData[key].qty = 0;
+                document.getElementById(`qty-${key}`).innerText = '0';
+                
+                // Reset Price Text Styles
+                let displayPrice = `+R${addonData[key].price}`;
+                let priceEl = document.getElementById(`price-${key}`);
+                priceEl.innerText = displayPrice;
+                priceEl.className = "text-xs text-indigo-600 font-bold";
+                // Restore original styling classes
+                if(key.includes('shoes')) priceEl.className = "text-xs text-cyan-600 font-bold";
+                if(key.includes('basket')) priceEl.className = "text-xs text-emerald-600 font-bold";
+            }
+
+            document.getElementById('modalPackageName').innerText = packageName;
+            document.getElementById('modalPackageText').innerText = packageName;
+            quantityDisplay.innerText = "1";
+            
+            document.getElementById('selectedPackage').value = packageName;
+            document.getElementById('selectedPrice').value = currentBasePrice;
+
+            // Mode Logic
+            if(mode === 'monthly') {
+                modalAddons.classList.remove('hidden');
+                modalQuantitySection.classList.add('hidden');
+                
+                if (preselectedAddon) {
+                   // Map preselection to addon key
+                   if(preselectedAddon.includes('Blanket')) updateAddonQuantity('blanket-monthly', 1);
+                   if(preselectedAddon.includes('Shoes')) updateAddonQuantity('shoes-monthly', 1);
+                   if(preselectedAddon.includes('Basket')) updateAddonQuantity('basket-monthly', 1);
+                   preselectedAddon = null; 
+                }
+            } 
+            else if (mode === 'blanket' || mode === 'shoe' || mode === 'ironing') {
+                modalAddons.classList.add('hidden');
+                modalQuantitySection.classList.remove('hidden');
+                discountBadge.classList.add('hidden');
+            }
+            else {
+                modalAddons.classList.add('hidden');
+                modalQuantitySection.classList.add('hidden');
+            }
+
+            updateTotalPrice();
+
+            // Lock Body Scroll
+            body.classList.add('modal-open');
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                // Unlock Body Scroll
+                body.classList.remove('modal-open');
+            }, 300);
+        }
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) closeModal();
+        });
+
+        // --- Location Sharing Logic ---
+        function shareLocation() {
+            showToast("Accessing Location...");
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                // Fallback for no support
+                window.open("https://wa.me/27847916397?text=Hi%20Ora%20Laundry,%20please%20send%20me%20your%20location%20pin.", "_blank");
+            }
+        }
+
+        function showPosition(position) {
+            const lat = position.coords.latitude;
+            const long = position.coords.longitude;
+            const mapLink = `https://www.google.com/maps/search/?api=1&query=${lat},${long}`;
+            const message = `Hi Ora Laundry, here is my delivery location for the free delivery:%0A${mapLink}`;
+            window.open(`https://wa.me/27847916397?text=${message}`, "_blank");
+        }
+
+        function showError(error) {
+            // Fallback if user denies permission
+            showToast("Location access denied. Opening WhatsApp...");
+            setTimeout(() => {
+                const message = "Hi Ora Laundry, I'd like to share my location for the free delivery.";
+                window.open(`https://wa.me/27847916397?text=${message}`, "_blank");
+            }, 1500);
+        }
+
+
+        // --- On Demand Main Quantity Logic ---
+        function adjustQuantity(amount) {
+            let newQty = currentQuantity + amount;
+            if (newQty < 1) newQty = 1;
+            if (newQty > 100) newQty = 100; 
+            currentQuantity = newQty;
+            quantityDisplay.innerText = currentQuantity;
+            updateTotalPrice();
+        }
+
+        // --- Add-on Quantity Logic ---
+        function updateAddonQuantity(key, change) {
+            let newQty = addonData[key].qty + change;
+            if (newQty < 0) newQty = 0;
+            addonData[key].qty = newQty;
+            document.getElementById(`qty-${key}`).innerText = newQty;
+            updateTotalPrice();
+        }
+
+        function updateTotalPrice() {
+            let total = 0;
+
+            if (currentMode === 'monthly') {
+                total = currentBasePrice;
+                
+                // Calculate Add-ons
+                for (let key in addonData) {
+                    let item = addonData[key];
+                    let priceEl = document.getElementById(`price-${key}`);
+                    
+                    // Determine base color class
+                    let colorClass = "text-indigo-600"; 
+                    if(key.includes('shoes')) colorClass = "text-cyan-600";
+                    if(key.includes('basket')) colorClass = "text-emerald-600";
+
+                    if (item.qty > 0) {
+                        let itemTotal = item.qty * item.price;
+                        let discountedTotal = itemTotal;
+                        let isDiscounted = false;
+
+                        // Discount Logic for Add-ons (Same as On-Demand logic if applicable)
+                        // 1. Blanket Logic (2+ = 25% OFF)
+                        if (key.includes('blanket') && item.qty >= 2) {
+                            discountedTotal = itemTotal * 0.75;
+                            isDiscounted = true;
+                        }
+                        
+                        let finalSubtotal = Math.ceil(discountedTotal);
+                        
+                        // Update Price Text UI with Unit Price AND Subtotal
+                        if (isDiscounted) {
+                            priceEl.innerHTML = `<span class="text-[10px] text-gray-400 mr-1">R${item.price}/ea</span> <span class="text-green-600 font-bold">Total: R${finalSubtotal} (Bulk)</span>`;
+                        } else {
+                            priceEl.innerHTML = `<span class="text-[10px] text-gray-400 mr-1">R${item.price}/ea</span> <span class="${colorClass} font-bold">Total: R${finalSubtotal}</span>`;
+                        }
+                        
+                        total += finalSubtotal;
+                    } else {
+                        // Reset if qty is 0
+                        priceEl.innerText = `+R${item.price}`;
+                        priceEl.className = `text-xs ${colorClass} font-bold`;
+                    }
+                }
+            } 
+            else if (currentMode === 'blanket') {
+                let subtotal = currentQuantity * currentBasePrice; 
+                if (currentQuantity >= 2) {
+                    subtotal = subtotal * 0.75;
+                    discountText.innerHTML = '<i class="fas fa-tag mr-1"></i> 25% Bulk Discount Applied!';
+                    discountBadge.classList.remove('hidden');
+                } else {
+                    discountBadge.classList.add('hidden');
+                }
+                total = Math.ceil(subtotal);
+            } 
+            else if (currentMode === 'shoe') {
+                let subtotal = currentQuantity * currentBasePrice; 
+                if (currentQuantity >= 5) {
+                    subtotal = subtotal * 0.70; 
+                    discountText.innerHTML = '<i class="fas fa-tag mr-1"></i> 30% Bulk Discount Applied!';
+                    discountBadge.classList.remove('hidden');
+                } else {
+                    discountBadge.classList.add('hidden');
+                }
+                total = Math.ceil(subtotal);
+            }
+            else if (currentMode === 'ironing') {
+                total = currentQuantity * currentBasePrice; 
+                discountBadge.classList.add('hidden');
+            }
+            else {
+                total = currentBasePrice;
+            }
+
+            document.getElementById('payButtonPrice').innerText = total;
+            return total;
+        }
+
+        function showToast(message) {
+            var x = document.getElementById("toast");
+            x.innerText = message;
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+
+        function processAction(type) {
+            const name = document.getElementById('customerName').value.trim();
+            const phone = document.getElementById('customerPhone').value.trim();
+            const pkg = document.getElementById('selectedPackage').value;
+            
+            const finalPrice = updateTotalPrice();
+
+            if (!name || !phone) {
+                showToast("Please fill in Name and Phone first.");
+                if(!name) document.getElementById('customerName').classList.add('border-red-400');
+                if(!phone) document.getElementById('customerPhone').classList.add('border-red-400');
+                return;
+            }
+
+            document.getElementById('customerName').classList.remove('border-red-400');
+            document.getElementById('customerPhone').classList.remove('border-red-400');
+
+            if (type === 'pay') {
+                const priceInRands = finalPrice.toString().replace(/\s/g, '');
+                const yocoBaseLink = "https://pay.yoco.com/oratile";
+                const yocoLink = `${yocoBaseLink}?amount=${priceInRands}`;
+                
+                showToast("Redirecting to Secure Payment...");
+                setTimeout(() => {
+                    window.open(yocoLink, '_blank');
+                }, 1000);
+
+            } 
+            else if (type === 'inquire') {
+                let message = `Hi Ora Laundry,%0A%0AI would like to book:%0A`;
+
+                if (currentMode === 'blanket') {
+                    message += `*${currentQuantity}x Blanket Cleaning*`;
+                    if(currentQuantity >= 2) message += `%0A_(25% Bulk Discount Applied)_`;
+                } 
+                else if (currentMode === 'shoe') {
+                    message += `*${currentQuantity}x Pairs of Shoes*`;
+                    if(currentQuantity >= 5) message += `%0A_(30% Bulk Discount Applied)_`;
+                }
+                else if (currentMode === 'ironing') {
+                    message += `*${currentQuantity}x Items Ironing*`;
+                }
+                else {
+                    message += `*${pkg}*`;
+                    if (currentMode === 'monthly') {
+                        let addonsMsg = "";
+                        for (let key in addonData) {
+                            if (addonData[key].qty > 0) {
+                                addonsMsg += `%0A- ${addonData[key].qty}x ${addonData[key].name}`;
+                            }
+                        }
+                        if(addonsMsg) {
+                            message += `%0A%0A*Add-ons:*${addonsMsg}`;
+                        }
+                    }
+                }
+
+                message += `%0A%0A*Total: R${finalPrice}*`;
+                message += `%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A%0A(Booking via Web)`;
+                
+                const whatsappUrl = `https://wa.me/27847916397?text=${message}`;
+                window.open(whatsappUrl, '_blank');
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

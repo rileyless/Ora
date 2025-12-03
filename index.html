@@ -1,21 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head>I 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ora Laundry Service</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Yoco SDK -->
+    <script src="https://js.yoco.com/sdk/v1/yoco-sdk-web.js"></script>
+
     <style>
-        body {
+        /* Base Styles */
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
             font-family: 'Poppins', sans-serif;
-            background-color: #eef2f6;
+            background-color: #f1f5f9;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: none;
         }
         
-        /* Background Pattern Generator using CSS */
+        /* Background Pattern */
         .bg-pattern {
             position: fixed;
             top: 0;
@@ -23,560 +35,347 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.05;
+            opacity: 0.04;
             pointer-events: none;
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
-            align-content: space-around;
+            justify-content: center;
+            align-content: center;
             overflow: hidden;
+            gap: 60px;
         }
         
         .bg-icon {
-            font-size: 3rem; /* Smaller icons for mobile */
-            color: #000;
-            margin: 20px;
+            font-size: 3.5rem;
+            color: #1e293b;
             transform: rotate(-15deg);
-        }
-        
-        @media (min-width: 768px) {
-            .bg-icon {
-                font-size: 4rem;
-                margin: 40px;
-            }
+            transition: transform 0.5s ease;
         }
 
+        /* Glassmorphism Cards */
         .glass-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.92); 
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border-radius: 24px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transform: translateZ(0);
+            will-change: transform; 
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            position: relative;
         }
 
-        .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        .glass-card:active {
+            transform: scale(0.98);
         }
 
-        .price-text {
-            color: #dc2626; /* Red color from the flyer */
-        }
-        
-        .free-delivery-text {
-            color: #16a34a; /* Green color from the flyer */
-        }
+        /* Typography Colors */
+        .price-text { color: #dc2626; }
+        .free-delivery-text { color: #16a34a; }
 
-        /* Floating WhatsApp Button Styles */
+        /* Floating WhatsApp Button */
         .whatsapp-float {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 24px;
+            right: 24px;
             background-color: #25d366;
             color: #FFF;
             border-radius: 50%;
             text-align: center;
-            font-size: 28px; /* Slightly smaller on mobile */
-            box-shadow: 2px 2px 3px #999;
-            z-index: 100;
+            font-size: 28px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 50;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 55px;
-            height: 55px;
-            transition: transform 0.3s, background-color 0.3s;
+            width: 60px;
+            height: 60px;
             text-decoration: none;
+            transform: translateZ(0); 
         }
 
-        @media (min-width: 768px) {
-            .whatsapp-float {
-                width: 60px;
-                height: 60px;
-                font-size: 30px;
-            }
+        /* Modal Scroll Optimization */
+        .modal-scroll {
+            max-height: 85vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
         }
 
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-            background-color: #128c7e;
+        /* Prevent Body Scroll Class */
+        body.modal-open {
+            overflow: hidden !important;
+            height: 100vh;
+            position: fixed;
+            width: 100%;
         }
         
-        /* Fix for scrolling modals on small phones */
-        .modal-scroll {
-            max-height: 90vh;
-            overflow-y: auto;
+        /* Toast Notification */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #1f2937;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 14px;
+            position: fixed;
+            z-index: 100;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
+
+        /* Input Number Styling */
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+            touch-action: manipulation;
         }
     </style>
 </head>
 <body class="text-slate-700 antialiased relative">
 
+    <!-- Toast Notification Container -->
+    <div id="toast">Notification Message</div>
+
     <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/message/3U2L5DIGXB2YA1?src=qr" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+    <a href="https://wa.me/27847916397" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <!-- Background Pattern -->
     <div class="bg-pattern">
-        <!-- Repeating icons to mimic the flyer wallpaper -->
         <i class="fas fa-tshirt bg-icon"></i>
         <i class="fas fa-soap bg-icon"></i>
-        <i class="fas fa-layer-group bg-icon"></i>
+        <i class="fas fa-water bg-icon"></i>
         <i class="fas fa-tshirt bg-icon"></i>
         <i class="fas fa-soap bg-icon"></i>
-        <i class="fas fa-layer-group bg-icon"></i>
+        <i class="fas fa-water bg-icon"></i>
         <i class="fas fa-tshirt bg-icon"></i>
         <i class="fas fa-soap bg-icon"></i>
-        <i class="fas fa-layer-group bg-icon"></i>
+        <i class="fas fa-water bg-icon"></i>
         <i class="fas fa-tshirt bg-icon"></i>
         <i class="fas fa-soap bg-icon"></i>
-        <i class="fas fa-layer-group bg-icon"></i>
+        <i class="fas fa-water bg-icon"></i>
         <i class="fas fa-tshirt bg-icon"></i>
         <i class="fas fa-soap bg-icon"></i>
-        <i class="fas fa-layer-group bg-icon"></i>
-        <i class="fas fa-tshirt bg-icon"></i>
-        <i class="fas fa-soap bg-icon"></i>
-        <i class="fas fa-layer-group bg-icon"></i>
-        <i class="fas fa-tshirt bg-icon"></i>
-        <i class="fas fa-soap bg-icon"></i>
+        <i class="fas fa-water bg-icon"></i>
     </div>
 
     <!-- Navigation -->
-    <nav class="w-full p-4 md:p-6 z-20">
+    <nav class="w-full p-4 z-20 relative bg-white/80 backdrop-blur-sm border-b border-gray-100">
         <div class="container mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <img src="https://i.ibb.co/3sX8s0R/Ora-Laundry-Service-Logo.png" alt="Ora Laundry Service Logo" class="h-10 md:h-12 w-auto">
+            <div class="flex items-center gap-2">
+                <div class="bg-slate-900 text-white font-bold p-2 rounded-lg text-lg">Ora</div>
+                <span class="font-bold text-lg text-slate-800 tracking-tight">Laundry</span>
             </div>
-            <a href="https://wa.me/message/3U2L5DIGXB2YA1?src=qr" class="hidden md:block bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full font-bold transition shadow-md">
-                <i class="fab fa-whatsapp mr-2"></i> WhatsApp Us
+            <a href="https://wa.me/27847916397" class="hidden md:flex bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-full font-bold transition shadow-sm items-center gap-2 text-sm">
+                <i class="fab fa-whatsapp"></i> WhatsApp Us
             </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="pt-6 pb-8 md:pt-10 md:pb-10 text-center relative z-10">
+    <header class="pt-8 pb-8 text-center relative z-10">
         <div class="container mx-auto px-4">
-            <h1 class="text-3xl md:text-6xl font-bold text-slate-900 mb-2">
-                Ora Laundry Service
+            <h1 class="text-3xl md:text-5xl font-bold text-slate-900 mb-3 tracking-tight">
+                Fresh Laundry,<br><span class="text-slate-500">Zero Hassle.</span>
             </h1>
-            <p class="text-lg md:text-2xl text-gray-500 font-light mb-6 md:mb-8">
-                Tired of Laundry Day? Let Ora Handle It!
+            <p class="text-base text-gray-500 font-light mb-6 max-w-2xl mx-auto">
+                Professional wash, dry, and fold service with free pickup & delivery.
             </p>
-            <div class="w-16 md:w-24 h-1 bg-slate-300 mx-auto rounded-full mb-6 md:mb-8"></div>
-            <h2 class="text-xl md:text-2xl font-bold text-slate-800">Packages:</h2>
+            <div class="flex justify-center gap-3">
+                <a href="#packages" class="px-6 py-3 bg-slate-900 text-white font-bold rounded-xl text-sm shadow-md active:bg-slate-800">View Packages</a>
+                <a href="#on-demand" class="px-6 py-3 bg-white text-slate-900 border border-slate-200 font-bold rounded-xl text-sm shadow-sm active:bg-gray-50">On Demand</a>
+            </div>
         </div>
     </header>
 
-    <!-- Pricing Section -->
-    <section id="packages" class="pb-20 container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
+    <!-- Monthly Packages Section -->
+    <section id="packages" class="pb-12 container mx-auto px-4 relative z-10">
+        <div class="text-center mb-8">
+            <div class="w-12 h-1 bg-slate-300 mx-auto rounded-full mb-3"></div>
+            <h2 class="text-xl md:text-2xl font-bold text-slate-800">Monthly Subscriptions</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto mb-8">
             
             <!-- Toddlers -->
-            <div class="glass-card p-6 md:p-8 flex flex-col text-center relative">
-                <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Toddlers kids</h3>
-                <div class="flex items-baseline justify-center gap-1 mb-6">
-                    <span class="text-2xl md:text-3xl font-bold price-text">R 199</span>
-                    <span class="text-base md:text-lg font-medium price-text">Per Month</span>
+            <div onclick="openModal('Toddlers', '199', 'monthly')" class="glass-card p-5 flex flex-col relative group">
+                <h3 class="text-xl font-bold text-slate-900 mb-1">Toddlers</h3>
+                <div class="flex items-baseline gap-1 mb-3">
+                    <span class="text-2xl font-bold price-text">R 199</span>
+                    <span class="text-xs text-gray-500">/month</span>
                 </div>
-                <ul class="space-y-3 text-gray-600 text-left inline-block mx-auto mb-8 text-sm md:text-base">
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> 1/2 Basket Weekly</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Wash & Dry</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Weekly Pickup</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Basic Detergent</li>
+                <ul class="space-y-2 text-gray-600 text-sm mb-5 flex-grow">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> 1/2 Basket Weekly</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Wash & Dry</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Weekly Pickup</li>
                 </ul>
-                <button onclick="openModal('Toddlers', '199')" class="mt-auto w-full py-3 border-2 border-slate-800 text-slate-800 font-bold rounded-xl hover:bg-slate-800 hover:text-white transition">Select</button>
+                <div class="w-full py-3 border border-slate-800 text-slate-800 text-center font-bold rounded-xl group-active:bg-slate-100 transition">Select</div>
             </div>
 
             <!-- Student -->
-            <div class="glass-card p-6 md:p-8 flex flex-col text-center relative">
-                <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Student</h3>
-                <div class="flex items-baseline justify-center gap-1 mb-6">
-                    <span class="text-2xl md:text-3xl font-bold price-text">R 249</span>
-                    <span class="text-base md:text-lg font-medium price-text">Per Month</span>
+            <div onclick="openModal('Student', '249', 'monthly')" class="glass-card p-5 flex flex-col relative group">
+                <h3 class="text-xl font-bold text-slate-900 mb-1">Student</h3>
+                <div class="flex items-baseline gap-1 mb-3">
+                    <span class="text-2xl font-bold price-text">R 249</span>
+                    <span class="text-xs text-gray-500">/month</span>
                 </div>
-                <ul class="space-y-3 text-gray-600 text-left inline-block mx-auto mb-8 text-sm md:text-base">
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> 1 Basket Weekly</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Uniform & Socks</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Wash & Dry</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Weekly Pickup</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Basic Detergent</li>
+                <ul class="space-y-2 text-gray-600 text-sm mb-5 flex-grow">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> 1 Basket Weekly</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Uniform & Socks</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Wash & Dry</li>
                 </ul>
-                <button onclick="openModal('Student', '249')" class="mt-auto w-full py-3 border-2 border-slate-800 text-slate-800 font-bold rounded-xl hover:bg-slate-800 hover:text-white transition">Select</button>
+                <div class="w-full py-3 border border-slate-800 text-slate-800 text-center font-bold rounded-xl group-active:bg-slate-100 transition">Select</div>
             </div>
 
             <!-- Basic -->
-            <div class="glass-card p-6 md:p-8 flex flex-col text-center relative">
-                <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Basic</h3>
-                <div class="flex items-baseline justify-center gap-1 mb-6">
-                    <span class="text-2xl md:text-3xl font-bold price-text">R 349</span>
-                    <span class="text-base md:text-lg font-medium price-text">Per Month</span>
+            <div onclick="openModal('Basic', '349', 'monthly')" class="glass-card p-5 flex flex-col relative group">
+                <h3 class="text-xl font-bold text-slate-900 mb-1">Basic</h3>
+                <div class="flex items-baseline gap-1 mb-3">
+                    <span class="text-2xl font-bold price-text">R 349</span>
+                    <span class="text-xs text-gray-500">/month</span>
                 </div>
-                <ul class="space-y-3 text-gray-600 text-left inline-block mx-auto mb-8 text-sm md:text-base">
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> 1 Basket Weekly</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Wash & Dry</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Weekly Pickup</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Basic Detergent</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Folding</li>
+                <ul class="space-y-2 text-gray-600 text-sm mb-5 flex-grow">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> 1 Basket Weekly</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Wash, Dry & Fold</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Basic Detergent</li>
                 </ul>
-                <button onclick="openModal('Basic', '349')" class="mt-auto w-full py-3 border-2 border-slate-800 text-slate-800 font-bold rounded-xl hover:bg-slate-800 hover:text-white transition">Select</button>
+                <div class="w-full py-3 border border-slate-800 text-slate-800 text-center font-bold rounded-xl group-active:bg-slate-100 transition">Select</div>
             </div>
 
             <!-- Standard -->
-            <div class="glass-card p-6 md:p-8 flex flex-col text-center relative border-2 border-slate-200 transform md:scale-105 z-10 shadow-xl">
-                <div class="absolute top-0 right-0 bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">POPULAR</div>
-                <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Standard</h3>
-                <div class="flex items-baseline justify-center gap-1 mb-6">
-                    <span class="text-2xl md:text-3xl font-bold price-text">R 549</span>
-                    <span class="text-base md:text-lg font-medium price-text">Per Month</span>
+            <div onclick="openModal('Standard', '549', 'monthly')" class="glass-card p-5 flex flex-col relative border-2 border-slate-200 group">
+                <div class="absolute top-0 right-0 bg-slate-800 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">MOST POPULAR</div>
+                <h3 class="text-xl font-bold text-slate-900 mb-1">Standard</h3>
+                <div class="flex items-baseline gap-1 mb-3">
+                    <span class="text-2xl font-bold price-text">R 549</span>
+                    <span class="text-xs text-gray-500">/month</span>
                 </div>
-                <ul class="space-y-3 text-gray-600 text-left inline-block mx-auto mb-8 text-sm md:text-base">
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> 2 Baskets Weekly</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Wash & Dry</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Weekly Pickup</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Premium Detergent</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Folding</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Ironing</li>
+                <ul class="space-y-2 text-gray-600 text-sm mb-5 flex-grow">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i> 2 Baskets Weekly</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i> Wash, Dry & Fold</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i> <strong>Ironing Included</strong></li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i> Premium Detergent</li>
                 </ul>
-                <button onclick="openModal('Standard', '549')" class="mt-auto w-full py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-700 transition shadow-lg">Select</button>
+                <div class="w-full py-3 bg-slate-900 text-white text-center font-bold rounded-xl group-active:bg-slate-700 transition shadow-md">Select Standard</div>
             </div>
 
             <!-- Family -->
-            <div class="glass-card p-6 md:p-8 flex flex-col text-center relative">
-                <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Family</h3>
-                <div class="flex items-baseline justify-center gap-1 mb-6">
-                    <span class="text-2xl md:text-3xl font-bold price-text">R 849</span>
-                    <span class="text-base md:text-lg font-medium price-text">Per Month</span>
+            <div onclick="openModal('Family', '849', 'monthly')" class="glass-card p-5 flex flex-col relative group">
+                <h3 class="text-xl font-bold text-slate-900 mb-1">Family</h3>
+                <div class="flex items-baseline gap-1 mb-3">
+                    <span class="text-2xl font-bold price-text">R 849</span>
+                    <span class="text-xs text-gray-500">/month</span>
                 </div>
-                <ul class="space-y-3 text-gray-600 text-left inline-block mx-auto mb-8 text-sm md:text-base">
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> 3 Baskets Weekly</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Wash & Dry</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Weekly Pickup</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Premium Detergent</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Folding</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Ironing</li>
+                <ul class="space-y-2 text-gray-600 text-sm mb-5 flex-grow">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> 3 Baskets Weekly</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Wash, Dry & Iron</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Folding Included</li>
                 </ul>
-                <button onclick="openModal('Family', '849')" class="mt-auto w-full py-3 border-2 border-slate-800 text-slate-800 font-bold rounded-xl hover:bg-slate-800 hover:text-white transition">Select</button>
+                <div class="w-full py-3 border border-slate-800 text-slate-800 text-center font-bold rounded-xl group-active:bg-slate-100 transition">Select</div>
             </div>
 
             <!-- Premium -->
-            <div class="glass-card p-6 md:p-8 flex flex-col text-center relative">
-                <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">Premium</h3>
-                <div class="flex items-baseline justify-center gap-1 mb-6">
-                    <span class="text-2xl md:text-3xl font-bold price-text">R 949</span>
-                    <span class="text-base md:text-lg font-medium price-text">Per Month</span>
+            <div onclick="openModal('Premium', '949', 'monthly')" class="glass-card p-5 flex flex-col relative group">
+                <h3 class="text-xl font-bold text-slate-900 mb-1">Premium</h3>
+                <div class="flex items-baseline gap-1 mb-3">
+                    <span class="text-2xl font-bold price-text">R 949</span>
+                    <span class="text-xs text-gray-500">/month</span>
                 </div>
-                <ul class="space-y-3 text-gray-600 text-left inline-block mx-auto mb-8 text-sm md:text-base">
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> 3 Baskets Weekly</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Wash, Dry, Iron</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Premium Detergent</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> <strong>Bedding</strong> (1/mo)</li>
-                    <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> <strong>Shoes</strong> (1 pair/wk)</li>
+                <ul class="space-y-2 text-gray-600 text-sm mb-5 flex-grow">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> 3 Baskets Weekly</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Wash, Dry & Iron</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-star text-yellow-500 text-xs"></i> <strong>Bedding</strong> (1/mo)</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-star text-yellow-500 text-xs"></i> <strong>Shoes</strong> (1 pair/wk)</li>
                 </ul>
-                <button onclick="openModal('Premium', '949')" class="mt-auto w-full py-3 border-2 border-slate-800 text-slate-800 font-bold rounded-xl hover:bg-slate-800 hover:text-white transition">Select</button>
+                <div class="w-full py-3 border border-slate-800 text-slate-800 text-center font-bold rounded-xl group-active:bg-slate-100 transition">Select</div>
             </div>
 
             <!-- Deluxe -->
-            <div class="glass-card p-6 md:p-8 flex flex-col text-center relative lg:col-span-3 xl:col-span-3 mt-4 bg-slate-50 border border-slate-200">
-                <div class="absolute top-0 right-0 bg-amber-400 text-slate-900 text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-2xl">LUXURY</div>
-                <h3 class="text-3xl md:text-4xl font-bold text-slate-900 mb-2">Deluxe</h3>
-                <div class="flex items-baseline justify-center gap-1 mb-6">
-                    <span class="text-3xl md:text-4xl font-bold price-text">R 1499</span>
-                    <span class="text-lg md:text-xl font-medium price-text">Per Month</span>
+            <div onclick="openModal('Deluxe', '1499', 'monthly')" class="glass-card p-5 flex flex-col relative md:col-span-2 lg:col-span-3 bg-white border border-slate-200 group">
+                <div class="absolute top-0 right-0 bg-amber-400 text-slate-900 text-[10px] font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">ULTIMATE LUXURY</div>
+                <h3 class="text-xl font-bold text-slate-900 mb-1">Deluxe</h3>
+                <div class="flex items-baseline gap-1 mb-3">
+                    <span class="text-2xl font-bold price-text">R 1499</span>
+                    <span class="text-xs text-gray-500">/month</span>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 text-left max-w-3xl mx-auto mb-8">
-                    <ul class="space-y-3 text-gray-600 text-sm md:text-base">
-                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> 4 Baskets Weekly</li>
-                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Wash & Dry</li>
-                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Weekly Pickup</li>
-                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Premium Detergent</li>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left max-w-4xl mb-4">
+                    <ul class="space-y-2 text-gray-600 text-sm">
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> 4 Baskets Weekly</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Wash, Dry, Iron & Fold</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Premium Detergent & Softener</li>
                     </ul>
-                    <ul class="space-y-3 text-gray-600 text-sm md:text-base">
-                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Ironing Included</li>
-                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> Folding</li>
-                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> <strong>Bedding/Blanket</strong> (1 set/wk)</li>
-                        <li class="flex items-center gap-3"><span class="w-2 h-2 bg-slate-400 rounded-full"></span> <strong>Shoes Included</strong> (2 pairs/wk)</li>
+                    <ul class="space-y-2 text-gray-600 text-sm">
+                        <li class="flex items-center gap-3"><i class="fas fa-star text-amber-500 text-xs"></i> <strong>Bedding/Blanket</strong> (1 set/wk)</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-star text-amber-500 text-xs"></i> <strong>Shoes Included</strong> (2 pairs/wk)</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-star text-amber-500 text-xs"></i> Priority Turnaround</li>
                     </ul>
                 </div>
-                <button onclick="openModal('Deluxe', '1 499')" class="mx-auto w-full max-w-md py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-700 transition shadow-lg">Select Deluxe</button>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Footer / Contact Section -->
-    <footer class="text-center py-10 md:py-12 relative z-10 pb-24 md:pb-12"> <!-- Added bottom padding for floating button -->
-        <div class="container mx-auto px-4">
-            <h2 class="text-2xl font-bold text-slate-900 mb-6">Contact</h2>
-            
-            <div class="flex flex-col items-center justify-center gap-2 mb-8">
-                <a href="tel:0734194517" class="text-lg font-bold text-slate-800 hover:text-slate-600">
-                    Call: 073 419 4517
-                </a>
-                <a href="https://wa.me/message/3U2L5DIGXB2YA1?src=qr" class="text-lg font-bold text-slate-800 hover:text-green-600 flex items-center gap-2">
-                    <i class="fab fa-whatsapp"></i> WhatsApp: 084 791 6399
-                </a>
-            </div>
-
-            <div class="free-delivery-text text-xl md:text-2xl font-bold">
-                All Deliveries and Pickups are Free
-            </div>
-            <div class="mt-8 text-gray-400 text-xs">
-                © 2023 Ora Laundry Service
+                <div class="w-full max-w-md mx-auto py-3 bg-slate-900 text-white text-center font-bold rounded-xl group-active:bg-slate-700 transition shadow-sm">Select Deluxe</div>
             </div>
         </div>
-    </footer>
 
-    <!-- Booking Modal -->
-    <div id="bookingModal" class="fixed inset-0 bg-slate-900 bg-opacity-60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform transition-all scale-95 opacity-0 modal-scroll" id="modalContent">
-            <div class="p-5 md:p-6 border-b border-gray-100 flex justify-between items-center sticky top-0 bg-white z-10">
-                <h3 class="text-lg md:text-xl font-bold text-gray-800">Book <span id="modalPackageName" class="text-slate-600"></span></h3>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+        <!-- Add-ons Visual Display -->
+        <div class="mt-6 max-w-4xl mx-auto">
+            <h3 class="text-base font-bold text-slate-800 text-center mb-3 opacity-70">Customize Your Monthly Plan</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <!-- Add-on 1 -->
+                <button onclick="selectPreAddon('Blanket (1)')" class="bg-white/60 p-3 rounded-xl border border-slate-200 flex items-center justify-between shadow-sm cursor-pointer active:bg-white transition group text-left w-full">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+                            <i class="fas fa-layer-group text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm text-slate-800">Add Blanket</p>
+                        </div>
+                    </div>
+                    <span class="font-bold text-indigo-600 text-sm">+R150</span>
+                </button>
+                <!-- Add-on 2 -->
+                <button onclick="selectPreAddon('Shoes (4 pairs)')" class="bg-white/60 p-3 rounded-xl border border-slate-200 flex items-center justify-between shadow-sm cursor-pointer active:bg-white transition group text-left w-full">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-cyan-100 flex items-center justify-center text-cyan-600">
+                            <i class="fas fa-shoe-prints text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm text-slate-800">Add Shoes</p>
+                        </div>
+                    </div>
+                    <span class="font-bold text-cyan-600 text-sm">+R200</span>
+                </button>
+                <!-- Add-on 3 -->
+                <button onclick="selectPreAddon('Extra Basket')" class="bg-white/60 p-3 rounded-xl border border-slate-200 flex items-center justify-between shadow-sm cursor-pointer active:bg-white transition group text-left w-full">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+                            <i class="fas fa-shopping-basket text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm text-slate-800">Extra Basket</p>
+                        </div>
+                    </div>
+                    <span class="font-bold text-emerald-600 text-sm">+R200</span>
+                </button>
             </div>
-            <div class="p-5 md:p-6">
-                <p class="text-sm text-gray-500 mb-4">You are selecting the <span id="modalPackageText" class="font-bold text-gray-800"></span> package.</p>
-                
-                <!-- Add-ons Section -->
-                <div class="mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
-                    <h4 class="text-sm font-bold text-slate-700 mb-3 uppercase tracking-wide">Optional Add-ons</h4>
-                    <div class="space-y-2 text-sm">
-                        <label class="flex items-center justify-between p-2 hover:bg-white rounded-lg transition cursor-pointer">
-                            <div class="flex items-center">
-                                <input type="checkbox" class="addon-checkbox w-4 h-4 text-slate-900 rounded border-gray-300 focus:ring-slate-500" value="50" onchange="updateTotal()">
-                                <span class="ml-2 text-slate-600">Add Folding</span>
-                            </div>
-                            <span class="font-semibold text-slate-800">+ R 50</span>
-                        </label>
-                        <label class="flex items-center justify-between p-2 hover:bg-white rounded-lg transition cursor-pointer">
-                            <div class="flex items-center">
-                                <input type="checkbox" class="addon-checkbox w-4 h-4 text-slate-900 rounded border-gray-300 focus:ring-slate-500" value="150" onchange="updateTotal()">
-                                <span class="ml-2 text-slate-600">Add Ironing</span>
-                            </div>
-                            <span class="font-semibold text-slate-800">+ R 150</span>
-                        </label>
-                        <label class="flex items-center justify-between p-2 hover:bg-white rounded-lg transition cursor-pointer">
-                            <div class="flex items-center">
-                                <input type="checkbox" class="addon-checkbox w-4 h-4 text-slate-900 rounded border-gray-300 focus:ring-slate-500" value="150" onchange="updateTotal()">
-                                <span class="ml-2 text-slate-600">Add Blanket/Bedding (1)</span>
-                            </div>
-                            <span class="font-semibold text-slate-800">+ R 150</span>
-                        </label>
-                        <label class="flex items-center justify-between p-2 hover:bg-white rounded-lg transition cursor-pointer">
-                            <div class="flex items-center">
-                                <input type="checkbox" class="addon-checkbox w-4 h-4 text-slate-900 rounded border-gray-300 focus:ring-slate-500" value="200" onchange="updateTotal()">
-                                <span class="ml-2 text-slate-600">Add Shoes (4 pairs/mo)</span>
-                            </div>
-                            <span class="font-semibold text-slate-800">+ R 200</span>
-                        </label>
-                        <label class="flex items-center justify-between p-2 hover:bg-white rounded-lg transition cursor-pointer">
-                            <div class="flex items-center">
-                                <input type="checkbox" class="addon-checkbox w-4 h-4 text-slate-900 rounded border-gray-300 focus:ring-slate-500" value="200" onchange="updateTotal()">
-                                <span class="ml-2 text-slate-600">Add Extra Basket (1)</span>
-                            </div>
-                            <span class="font-semibold text-slate-800">+ R 200</span>
-                        </label>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-200 flex justify-between items-center">
-                        <span class="font-bold text-slate-700">Total Monthly:</span>
-                        <span class="text-xl font-bold text-red-600">R <span id="modalTotalPrice">0</span></span>
-                    </div>
-                </div>
-
-                <form onsubmit="submitForm(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Name</label>
-                        <input type="text" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 text-base">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Phone Number</label>
-                        <input type="tel" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500 text-base">
-                    </div>
-                    <!-- Address field removed -->
-                    <button type="submit" class="w-full bg-slate-900 text-white font-bold py-4 rounded-lg hover:bg-slate-700 transition shadow-lg text-lg">Confirm Booking</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Confirmation Modal -->
-    <div id="confirmationModal" class="fixed inset-0 bg-slate-900 bg-opacity-60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full text-center p-6 md:p-8 transform transition-all scale-95 opacity-0" id="confirmationModalContent">
-            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
-                <i class="fas fa-check"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-800 mb-2">Ready to Go!</h3>
-            <p class="text-gray-500 mb-6 text-sm md:text-base">Your Payment and WhatsApp tabs have opened. Please complete your payment and send the WhatsApp message.</p>
-            <p class="text-sm text-gray-400 mb-4">If the payment tab didn't open, click below:</p>
-            <a id="backupPayButton" href="#" target="_blank" class="w-full bg-slate-900 text-white font-bold py-3 rounded-lg hover:bg-slate-700 transition shadow-lg inline-block">
-                Go to Payment
-            </a>
-        </div>
-    </div>
-
-
-    <script>
-        // Modal Logic
-        const modal = document.getElementById('bookingModal');
-        const modalContent = document.getElementById('modalContent');
-        const confirmationModal = document.getElementById('confirmationModal');
-        const confirmationModalContent = document.getElementById('confirmationModalContent');
-        const backupPayButton = document.getElementById('backupPayButton');
-        let currentBasePrice = 0;
-        
-        function openModal(pkgName, priceString) {
-            // Prevent background scrolling
-            document.body.classList.add('overflow-hidden');
-
-            // Reset checkboxes
-            document.querySelectorAll('.addon-checkbox').forEach(cb => cb.checked = false);
-            
-            // Parse price string (remove spaces, e.g., "1 499" -> 1499)
-            const numericPrice = parseInt(priceString.replace(/\s/g, ''), 10);
-            currentBasePrice = numericPrice;
-
-            document.getElementById('modalPackageName').textContent = pkgName;
-            document.getElementById('modalPackageText').textContent = pkgName;
-            
-            updateTotal(); // Initial calculation
-            
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modalContent.classList.remove('scale-95', 'opacity-0');
-                modalContent.classList.add('scale-100', 'opacity-100');
-            }, 10);
-        }
-
-        function updateTotal() {
-            let total = currentBasePrice;
-            const checkboxes = document.querySelectorAll('.addon-checkbox:checked');
-            
-            checkboxes.forEach(cb => {
-                total += parseInt(cb.value, 10);
-            });
-
-            // Format with spaces for thousands (e.g., 1499 -> 1 499)
-            document.getElementById('modalTotalPrice').textContent = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-        }
-
-        function closeModal() {
-            // Re-enable background scrolling
-            document.body.classList.remove('overflow-hidden');
-
-            modalContent.classList.remove('scale-100', 'opacity-100');
-            modalContent.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        }
-
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) closeModal();
-        });
-
-        // --- New Confirmation Modal Logic ---
-        function openConfirmationModal(yocoLink) {
-            // Lock scroll again for this modal
-            document.body.classList.add('overflow-hidden');
-            backupPayButton.href = yocoLink;
-            
-            confirmationModal.classList.remove('hidden');
-            setTimeout(() => {
-                confirmationModalContent.classList.remove('scale-95', 'opacity-0');
-                confirmationModalContent.classList.add('scale-100', 'opacity-100');
-            }, 10);
-            
-            // Auto-close this modal after 10 seconds
-            setTimeout(() => {
-                // Unlock scroll when auto-closing
-                document.body.classList.remove('overflow-hidden');
-                
-                confirmationModalContent.classList.remove('scale-100', 'opacity-100');
-                confirmationModalContent.classList.add('scale-95', 'opacity-0');
-                setTimeout(() => {
-                    confirmationModal.classList.add('hidden');
-                }, 300);
-            }, 10000);
-        }
-        // --- End of New Logic ---
-
-
-        function submitForm(e) {
-            e.preventDefault();
-            const btn = e.target.querySelector('button');
-            const originalText = btn.textContent;
-            
-            btn.textContent = 'Processing...';
-            btn.classList.add('opacity-75');
-
-            // Gather Data
-            const packageName = document.getElementById('modalPackageText').textContent;
-            const totalPrice = document.getElementById('modalTotalPrice').textContent; // e.g., "1 499"
-            
-            // Get inputs (assuming order: Name, Phone based on HTML structure)
-            const inputs = e.target.querySelectorAll('input');
-            const name = inputs[0].value;
-            const phone = inputs[1].value;
-            // Address removed
-
-            // Get selected add-ons
-            const addons = [];
-            document.querySelectorAll('.addon-checkbox:checked').forEach(cb => {
-                // Find the text label next to the checkbox
-                const label = cb.nextElementSibling.textContent;
-                addons.push(label);
-            });
-
-            // Construct Message
-            let message = `*New Booking Request*\n\n`;
-            message += `*Package:* ${packageName}\n`;
-            message += `*Total Price:* R ${totalPrice}\n\n`;
-            
-            if (addons.length > 0) {
-                message += `*Add-ons:*\n`;
-                addons.forEach(addon => message += `- ${addon}\n`);
-                message += `\n`;
-            }
-
-            message += `*Customer Details:*\n`;
-            message += `Name: ${name}\n`;
-            message += `Phone: ${phone}`;
-            // Address removed from message
-            
-            // --- NEW PAYMENT LOGIC ---
-            
-            // 1. Convert price to Rands (e.g., "1 499" -> "1499")
-            const priceInRands = totalPrice.replace(/\s/g, '');
-
-            // 2. Set your Yoco Payment Link here. 
-            const yocoBaseLink = "https://pay.yoco.com/oratile";
-            
-            // 3. Create the final Yoco URL with the amount pre-filled
-            // This will look like: https://pay.yoco.com/ora-laundry?amount=1499
-            const yocoLink = `${yocoBaseLink}?amount=${priceInRands}`;
-
-            // 4. Create the WhatsApp URL
-            const whatsappUrl = `https://wa.me/27847916399?text=${encodeURIComponent(message)}`;
-
-            // 5. Execute the NEW "Yoco first" process
-            setTimeout(() => {
-                // Step 1: Open Yoco in a new tab
-                window.open(yocoLink, '_blank');
-                
-                // Step 2: Open WhatsApp in a second new tab
-                window.open(whatsappUrl, '_blank');
-                
-                // Step 3: Close the booking modal
-                closeModal();
-                
-                // Step 4: Open the confirmation modal (with backup link)
-                openConfirmationModal(yocoLink);
-
-                // Reset form and button
-                e.target.reset();
-                btn.textContent = originalText;
-                btn.classList.remove('opacity-75');
-            }, 1000);
-        }
-    </script>
-</body>
-</html>
+            <p class="text-[10px] text-center text-gray-400 mt-2"><i class="fas fa-inf

@@ -8,10 +8,51 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Yoco SDK -->
-    <script src="https://js.yoco.com/sdk/v1/yoco-sdk-web.js"></script>
+    <!-- Google Fonts: Roboto is the standard for Material Design -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Google Sans"', 'Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        // Material You Theme - Fresh Indigo & Blue Palette
+                        md: {
+                            primary: '#4355B9',
+                            onPrimary: '#ffffff',
+                            primaryContainer: '#DEE0FF',
+                            onPrimaryContainer: '#00105C',
+                            secondary: '#5B5D72',
+                            secondaryContainer: '#E0E1F9',
+                            onSecondaryContainer: '#181A2C',
+                            tertiary: '#77536D',
+                            tertiaryContainer: '#FFD7F1',
+                            onTertiaryContainer: '#2D1228',
+                            error: '#ba1a1a',
+                            surface: '#FEFBFF',
+                            onSurface: '#1B1B1F',
+                            surfaceVariant: '#E3E1E6',
+                            onSurfaceVariant: '#46464F',
+                            outline: '#767680',
+                            surfaceContainerLowest: '#ffffff',
+                            surfaceContainerLow: '#F8F8FC',
+                            surfaceContainer: '#F2F2F6',
+                            surfaceContainerHigh: '#ECECEF',
+                            surfaceContainerHighest: '#E6E6E9',
+                        }
+                    },
+                    borderRadius: {
+                        '4xl': '28px',
+                        '5xl': '32px',
+                        'widget': '36px',
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
         /* Base Styles */
@@ -20,621 +61,950 @@
             width: 100%;
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: #f1f5f9;
+            background-color: #fbfdfd; /* md-surface */
+            color: #191c1d; /* md-on-surface */
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
             overscroll-behavior-y: none;
+            scroll-behavior: smooth !important;
         }
-        
-        /* Background Pattern */
-        .bg-pattern {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.04;
+
+        /* Animated SVG Background Pattern - Matched to Logo Image */
+        .bg-pattern-animated {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200vw;
+            height: 200vh;
+            opacity: 0.6; 
             pointer-events: none;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-content: center;
-            overflow: hidden;
-            gap: 60px;
-        }
-        
-        .bg-icon {
-            font-size: 3.5rem;
-            color: #1e293b;
-            transform: rotate(-15deg);
-            transition: transform 0.5s ease;
-        }
-
-        /* Glassmorphism Cards */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.92); 
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            transform: translateZ(0);
-            will-change: transform; 
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .glass-card:active {
-            transform: scale(0.98);
-        }
-
-        /* Typography Colors */
-        .price-text { color: #dc2626; }
-        .free-delivery-text { color: #16a34a; }
-
-        /* Floating WhatsApp Button */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background-color: #25d366;
-            color: #FFF;
-            border-radius: 50%;
-            text-align: center;
-            font-size: 28px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            text-decoration: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160' fill='none' stroke='%23CBD5E1' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg transform='translate(20, 20) scale(2)'%3E%3Cpath d='M20.38 3.46L16 2a8.5 8.5 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z'/%3E%3C/g%3E%3Cg transform='translate(100, 20) scale(2)'%3E%3Crect x='3' y='2' width='18' height='20' rx='2' ry='2'/%3E%3Cpath d='M3 7h18'/%3E%3Ccircle cx='12' cy='14' r='5'/%3E%3Ccircle cx='7' cy='4.5' r='1'/%3E%3Ccircle cx='10' cy='4.5' r='1'/%3E%3C/g%3E%3Cg transform='translate(20, 100) scale(2)'%3E%3Crect x='3' y='2' width='18' height='20' rx='2' ry='2'/%3E%3Cpath d='M3 7h18'/%3E%3Ccircle cx='12' cy='14' r='5'/%3E%3Ccircle cx='7' cy='4.5' r='1'/%3E%3Ccircle cx='10' cy='4.5' r='1'/%3E%3C/g%3E%3Cg transform='translate(100, 100) scale(2)'%3E%3Cpath d='M20.38 3.46L16 2a8.5 8.5 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 320px 320px;
+            background-repeat: repeat;
             transform: translateZ(0); 
+            will-change: transform;
+            animation: panBackgroundLogo 45s linear infinite;
         }
 
-        /* Modal Scroll Optimization */
-        .modal-scroll {
-            max-height: 85vh;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
+        @keyframes panBackgroundLogo { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-320px, -320px, 0); } }
+
+        /* Material Elevations & Transitions */
+        .elevation-1 { box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3), 0px 1px 3px 1px rgba(0,0,0,0.15); transition: box-shadow 0.3s ease, transform 0.3s ease; }
+        .elevation-2 { box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3), 0px 2px 6px 2px rgba(0,0,0,0.15); transition: box-shadow 0.3s ease, transform 0.3s ease; }
+        .elevation-3 { box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.3), 0px 4px 8px 3px rgba(0,0,0,0.15); transition: box-shadow 0.3s ease, transform 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-4px); box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2), 0px 6px 12px 4px rgba(0,0,0,0.1); }
+        .active-squish:active { transform: scale(0.96) !important; }
+
+        /* Story Sequence Marquee Animation */
+        @keyframes cycleMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .animate-story-marquee { display: flex; width: max-content; animation: cycleMarquee 15s linear infinite; }
+        .animate-story-marquee:hover { animation-play-state: paused; }
+
+        /* === INTERACTIVE EASTER EGG ANIMATIONS === */
+        @keyframes rushAnim {
+            0% { transform: translateX(-150vw) scale(0.8) skewX(10deg); }
+            40% { transform: translateX(0) scale(1.1) skewX(-5deg); }
+            60% { transform: translateX(0) scale(1.1) skewX(-5deg); }
+            100% { transform: translateX(150vw) scale(0.8) skewX(-15deg); }
+        }
+        .animate-truck-rush { animation: rushAnim 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+
+        .spin-drum { animation: spin 0.6s linear infinite; transform-origin: 50px 62px; }
+        .shake-machine { animation: shake 0.3s ease-in-out infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes shake {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-1px, 1px) rotate(-1.5deg); }
+            50% { transform: translate(1px, -1px) rotate(1.5deg); }
+            75% { transform: translate(-1px, -1px) rotate(-1deg); }
         }
 
-        /* Prevent Body Scroll Class */
-        body.modal-open {
-            overflow: hidden !important;
-            height: 100vh;
-            position: fixed;
-            width: 100%;
+        /* === ENGAGING MODAL ANIMATIONS === */
+        @keyframes shake-gift {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-15deg) scale(1.1); }
+            75% { transform: rotate(15deg) scale(1.1); }
         }
+        .animate-shake-gift { animation: shake-gift 1.5s ease-in-out infinite; }
         
-        /* Toast Notification */
-        #toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: #1f2937;
-            color: #fff;
-            text-align: center;
-            border-radius: 8px;
-            padding: 14px;
-            position: fixed;
-            z-index: 100;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity 0.3s, bottom 0.3s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        @keyframes modal-pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
         }
+        .animate-modal-pop { animation: modal-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
-        #toast.show {
-            visibility: visible;
-            opacity: 1;
-            bottom: 50px;
-        }
+        /* Confetti Fall */
+        @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+        .confetti { position: fixed; z-index: 9999; pointer-events: none; top: -20px; }
 
-        /* Input Number Styling */
-        .qty-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            cursor: pointer;
-            touch-action: manipulation;
-        }
+        /* Scroll Reveal Animations */
+        .reveal-up { opacity: 0; transform: translateY(40px); transition: opacity 0.7s cubic-bezier(0.2, 0, 0, 1), transform 0.7s cubic-bezier(0.2, 0, 0, 1); }
+        .reveal-up.active { opacity: 1; transform: translateY(0); }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        .pop-anim { animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes pop { 0% { transform: scale(0.85); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+
+        /* Floating Action Buttons */
+        .md-fab { position: fixed; z-index: 50; display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 16px; transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s; cursor: pointer; }
+        .md-fab:active { transform: scale(0.90); }
+        .fab-whatsapp { bottom: 24px; right: 24px; background-color: #c3f2c7; color: #002105; }
+        .fab-ai { bottom: 96px; right: 24px; background-color: #dbe1ff; color: #0e1b37; }
+
+        .modal-scroll { max-height: 80vh; overflow-y: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .modal-scroll::-webkit-scrollbar { display: none; } 
+        body.modal-open { overflow: hidden !important; }
+        
+        #toast { visibility: hidden; min-width: 250px; background-color: #3f484a; color: #f5f8f8; text-align: center; border-radius: 8px; padding: 14px 16px; position: fixed; z-index: 9999; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); font-size: 14px; opacity: 0; transition: opacity 0.3s, transform 0.3s cubic-bezier(0.2, 0, 0, 1); font-family: 'Roboto', sans-serif; font-weight: bold; }
+        #toast.show { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Chat Styles */
+        .chat-bubble-user { background-color: #4355B9; color: #ffffff; border-radius: 20px 20px 4px 20px; padding: 12px 16px; max-width: 80%; margin-left: auto; font-size: 14px; margin-bottom: 12px; transform-origin: bottom right; animation: chatPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .chat-bubble-ai { background-color: #ECECEF; color: #1B1B1F; border-radius: 20px 20px 20px 4px; padding: 12px 16px; max-width: 85%; margin-right: auto; font-size: 14px; margin-bottom: 12px; transform-origin: bottom left; animation: chatPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes chatPop { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .typing-indicator span { display: inline-block; width: 6px; height: 6px; background-color: #767680; border-radius: 50%; animation: typing 1.4s infinite ease-in-out both; margin: 0 2px; }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
     </style>
 </head>
-<body class="text-slate-700 antialiased relative">
+<body class="antialiased relative selection:bg-md-primaryContainer selection:text-md-onPrimaryContainer">
 
-    <!-- Toast Notification Container -->
-    <div id="toast">Notification Message</div>
-
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/27847916397" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <!-- Background Pattern -->
-    <div class="bg-pattern">
-        <i class="fas fa-tshirt bg-icon"></i>
-        <i class="fas fa-soap bg-icon"></i>
-        <i class="fas fa-water bg-icon"></i>
-        <i class="fas fa-tshirt bg-icon"></i>
-        <i class="fas fa-soap bg-icon"></i>
-        <i class="fas fa-water bg-icon"></i>
-        <i class="fas fa-tshirt bg-icon"></i>
-        <i class="fas fa-soap bg-icon"></i>
-        <i class="fas fa-water bg-icon"></i>
-        <i class="fas fa-tshirt bg-icon"></i>
-        <i class="fas fa-soap bg-icon"></i>
-        <i class="fas fa-water bg-icon"></i>
-        <i class="fas fa-tshirt bg-icon"></i>
-        <i class="fas fa-soap bg-icon"></i>
-        <i class="fas fa-water bg-icon"></i>
+    <!-- FULL SCREEN TRUCK OVERLAY (Hidden by default) -->
+    <div id="truckOverlay" class="fixed inset-0 z-[300] pointer-events-none hidden items-center justify-center overflow-hidden backdrop-blur-sm transition-all duration-300">
+        <div id="truckElement" class="flex items-center text-md-primary drop-shadow-2xl opacity-0 transition-opacity duration-100">
+            <div class="mr-[-30px] flex flex-col gap-4 opacity-50 z-0">
+               <div class="h-3 w-32 bg-md-primary rounded-full animate-pulse"></div>
+               <div class="h-3 w-16 bg-md-primary rounded-full animate-pulse delay-75"></div>
+               <div class="h-3 w-48 bg-md-primary rounded-full animate-pulse delay-150"></div>
+            </div>
+            <i class="fas fa-truck-fast text-[8rem] md:text-[14rem] z-10 drop-shadow-[0_20px_20px_rgba(67,85,185,0.4)]"></i>
+        </div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="w-full p-4 z-20 relative bg-white/80 backdrop-blur-sm border-b border-gray-100">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="bg-slate-900 text-white font-bold p-2 rounded-lg text-lg">Ora</div>
-                <span class="font-bold text-lg text-slate-800 tracking-tight">Laundry</span>
+    <!-- SECRET EASTER EGG MODAL -->
+    <div id="secretModal" class="fixed inset-0 bg-black/80 z-[400] hidden flex-col items-center justify-center transition-opacity opacity-0 backdrop-blur-md p-4">
+        <div class="text-[6rem] animate-bounce mb-4">🕵️‍♂️</div>
+        <h2 class="text-3xl md:text-5xl font-black text-white text-center mb-4 tracking-tight" style="text-shadow: 0 4px 20px rgba(67,85,185,0.5);">SECRET UNLOCKED!</h2>
+        <p class="text-md-surfaceVariant text-center text-lg max-w-md mb-8">You found both hidden Easter eggs! You are officially an Ora VIP.</p>
+        <button onclick="claimSecretDiscount()" class="px-8 py-4 bg-gradient-to-r from-[#c3f2c7] to-[#a3e4a9] text-[#002105] rounded-full font-black text-xl shadow-[0_0_30px_rgba(195,242,199,0.4)] hover:scale-105 transition-transform active-squish">CLAIM 10% OFF REWARD</button>
+    </div>
+
+    <!-- FLASH DEAL TIME REWARD MODAL (630 seconds idle) -->
+    <div id="timeRewardModal" class="fixed inset-0 bg-black/70 z-[250] hidden flex items-center justify-center backdrop-blur-md p-4 transition-opacity duration-300 opacity-0">
+        <div id="timeRewardContent" class="bg-md-surface w-full max-w-sm rounded-[32px] shadow-2xl p-8 text-center relative opacity-0">
+            <button onclick="closeTimeRewardModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-md-surfaceContainerHigh text-md-onSurfaceVariant flex items-center justify-center active-squish">
+                <i class="fas fa-times text-sm"></i>
+            </button>
+            <div class="w-20 h-20 bg-md-tertiaryContainer text-md-onTertiaryContainer rounded-full flex items-center justify-center mx-auto mb-4 text-4xl animate-bounce shadow-inner">
+                ⏳
             </div>
-            <a href="https://wa.me/27847916397" class="hidden md:flex bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-full font-bold transition shadow-sm items-center gap-2 text-sm">
-                <i class="fab fa-whatsapp"></i> WhatsApp Us
+            <h3 class="text-2xl font-black mb-2 text-md-onSurface leading-tight">Still deciding?</h3>
+            <p class="text-md-onSurfaceVariant mb-6 text-sm font-medium">You've been checking us out for a while! Let's make this easier for you. Here is a massive <span class="font-bold text-md-primary">15% OFF</span> any monthly plan.</p>
+            
+            <button onclick="claimTimeDiscount()" class="w-full py-4 bg-md-primary text-md-onPrimary rounded-2xl font-black active-squish text-base shadow-[0_0_20px_rgba(67,85,185,0.4)] hover:scale-105 transition-all pop-anim">
+                CLAIM 15% OFF NOW
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast" class="elevation-3">Notification Message</div>
+
+    <!-- FOMO EXIT INTENT MODAL (Engaging & Mysterious) -->
+    <div id="exitModal" class="fixed inset-0 bg-black/70 z-[200] hidden flex items-center justify-center backdrop-blur-md p-4 transition-opacity duration-300 opacity-0">
+        <div id="exitModalContent" class="bg-md-surface w-full max-w-sm rounded-[32px] shadow-2xl p-8 text-center relative opacity-0">
+            <div class="w-20 h-20 bg-md-tertiaryContainer text-md-onTertiaryContainer rounded-full flex items-center justify-center mx-auto mb-4 text-4xl animate-shake-gift shadow-inner">
+                🎁
+            </div>
+            <h3 class="text-2xl font-black mb-2 text-md-onSurface leading-tight">Wait! You're leaving money on the table! 😱</h3>
+            <p class="text-md-onSurfaceVariant mb-6 text-sm font-medium">Don't miss out on your exclusive welcome gift! It disappears forever if you close this page.</p>
+            
+            <div class="space-y-3">
+                <p class="text-[10px] font-bold text-md-primary uppercase tracking-widest mb-2 opacity-80">Is this your first time here?</p>
+                <button onclick="applyExitDiscount(0.10, 'Welcome')" class="w-full py-4 bg-md-primary text-md-onPrimary rounded-2xl font-bold active-squish text-base shadow-lg hover:shadow-xl transition-all relative overflow-hidden group">
+                    <span class="relative z-10">Yes, I'm New! (Reveal Gift)</span>
+                    <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform"></div>
+                </button>
+                <button onclick="applyExitDiscount(0.05, 'Loyalty')" class="w-full py-4 bg-md-surfaceContainerHigh text-md-onSurface rounded-2xl font-bold active-squish text-sm transition-colors hover:bg-md-surfaceContainerHighest">
+                    No, I'm Returning (Reveal Gift)
+                </button>
+            </div>
+            
+            <button onclick="closeExitModal()" class="mt-6 text-xs text-md-outline underline hover:text-md-onSurface transition-colors">No thanks, I prefer paying full price.</button>
+        </div>
+    </div>
+
+    <!-- Floating Action Buttons -->
+    <a href="https://wa.me/27847916399" class="md-fab fab-whatsapp elevation-3 hover-lift active-squish" target="_blank" aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+    <div onclick="openAIModal()" class="md-fab fab-ai elevation-3 hover-lift active-squish" aria-label="Ask AI Assistant">
+        <i class="fas fa-sparkles text-xl"></i>
+    </div>
+
+    <!-- Background Pattern with Fade-Out Mask -->
+    <div class="fixed inset-0 z-[-1] pointer-events-none" style="-webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 80%); mask-image: linear-gradient(to bottom, black 0%, transparent 80%);">
+        <div class="bg-pattern-animated"></div>
+    </div>
+
+    <!-- Top App Bar -->
+    <nav class="w-full h-16 sticky top-0 z-20 bg-md-surface/90 backdrop-blur-md flex items-center px-4 transition-shadow reveal-up active">
+        <div class="container mx-auto flex justify-between items-center">
+            
+            <!-- LOGO: Clicking this triggers the Washing Machine Animation (Easter Egg 1) -->
+            <div class="flex items-center gap-3 active-squish cursor-pointer pop-anim select-none" onclick="triggerWashingMachine()">
+                <svg id="oraLogo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-10 h-10 drop-shadow-sm transition-transform">
+                    <rect x="10" y="10" width="80" height="80" rx="8" fill="#3B4B5A"/>
+                    <rect x="10" y="32" width="80" height="3" fill="#ffffff"/>
+                    <rect x="20" y="18" width="12" height="6" rx="1" fill="#ffffff"/>
+                    <circle cx="75" cy="21" r="3" fill="#ffffff"/>
+                    <circle cx="50" cy="62" r="22" fill="#ffffff"/>
+                    <g id="oraDrum">
+                        <circle cx="50" cy="62" r="18" fill="#3B4B5A"/>
+                        <path d="M 32 62 Q 41 53 50 62 T 68 62 A 18 18 0 0 1 32 62 Z" fill="#ffffff"/>
+                        <path d="M 58 52 L 62 52 M 60 50 L 60 54" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="43" cy="67" r="2.5" fill="#DEE0FF"/>
+                        <circle cx="58" cy="58" r="2" fill="#DEE0FF"/>
+                        <circle cx="50" cy="54" r="1.5" fill="#DEE0FF"/>
+                    </g>
+                </svg>
+                <div class="flex flex-col justify-center">
+                    <span class="font-black text-2xl text-[#3B4B5A] leading-none tracking-tight" style="font-family: 'Google Sans', sans-serif;">Ora</span>
+                    <span class="text-[10px] text-[#3B4B5A] font-medium leading-none tracking-widest uppercase mt-[2px]" style="font-family: 'Google Sans', sans-serif;">Laundry Service</span>
+                </div>
+            </div>
+
+            <a href="https://wa.me/27847916399" class="hidden md:flex bg-md-secondaryContainer text-md-onSecondaryContainer hover:bg-md-secondary hover:text-white px-6 py-2.5 rounded-full font-medium transition items-center gap-2 text-sm active-squish">
+                <i class="fab fa-whatsapp"></i> Chat Support
             </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="pt-8 pb-8 text-center relative z-10">
-        <div class="container mx-auto px-4">
-            <h1 class="text-3xl md:text-5xl font-bold text-slate-900 mb-3 tracking-tight">
-                Fresh Laundry,<br><span class="text-slate-500">Zero Hassle.</span>
+    <header class="pt-12 pb-10 text-center relative z-10">
+        <div class="container mx-auto px-4 reveal-up active">
+            
+            <!-- MARQUEE: Clicking this triggers the Rushing Truck Animation (Easter Egg 2) -->
+            <div onclick="triggerTruckRush()" class="mx-auto w-[280px] md:w-[320px] overflow-hidden rounded-full bg-md-secondaryContainer text-md-onSecondaryContainer text-sm font-medium mb-6 py-2 shadow-[inset_0_0_10px_rgba(0,0,0,0.05)] border border-md-outline/10 relative cursor-pointer active-squish select-none group">
+                <div class="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-md-secondaryContainer to-transparent z-10 pointer-events-none group-hover:from-md-secondaryContainer/80 transition-colors"></div>
+                <div class="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-md-secondaryContainer to-transparent z-10 pointer-events-none group-hover:from-md-secondaryContainer/80 transition-colors"></div>
+                
+                <div class="animate-story-marquee">
+                    <div class="flex items-center gap-8 pr-8">
+                        <span class="flex items-center gap-2 whitespace-nowrap"><i class="fas fa-truck text-md-primary"></i> Picking up laundry</span>
+                        <span class="flex items-center gap-2 whitespace-nowrap"><i class="fas fa-soap text-blue-500"></i> Washing & Drying</span>
+                        <span class="flex items-center gap-2 whitespace-nowrap"><i class="fas fa-tshirt text-indigo-500"></i> Folding</span>
+                        <span class="flex items-center gap-2 whitespace-nowrap"><i class="fas fa-truck-fast text-green-600"></i> Delivering</span>
+                    </div>
+                    <div class="flex items-center gap-8 pr-8">
+                        <span class="flex items-center gap-2 whitespace-nowrap"><i class="fas fa-truck text-md-primary"></i> Picking up laundry</span>
+                        <span class="flex items-center gap-2 whitespace-nowrap"><i class="fas fa-soap text-blue-500"></i> Washing & Drying</span>
+                        <span class="flex items-center gap-2 whitespace-nowrap"><i class="fas fa-tshirt text-indigo-500"></i> Folding</span>
+                        <span class="flex items-center gap-2 whitespace-nowrap"><i class="fas fa-truck-fast text-green-600"></i> Delivering</span>
+                    </div>
+                </div>
+            </div>
+
+            <h1 class="text-4xl md:text-6xl font-bold text-md-onSurface mb-4 tracking-tight leading-tight reveal-up delay-100 active">
+                Fresh Laundry,<br>Zero Hassle.
             </h1>
-            <p class="text-base text-gray-500 font-light mb-6 max-w-2xl mx-auto">
-                Professional wash, dry, and fold service with free pickup & delivery.
+            <p class="text-base md:text-lg text-md-onSurfaceVariant font-normal mb-8 max-w-2xl mx-auto reveal-up delay-200 active">
+                Professional wash, dry, and fold service straight to your door. Tap to schedule a pickup.
             </p>
-            <div class="flex justify-center gap-3">
-                <a href="#packages" class="px-6 py-3 bg-slate-900 text-white font-bold rounded-xl text-sm shadow-md active:bg-slate-800">View Packages</a>
-                <a href="#on-demand" class="px-6 py-3 bg-white text-slate-900 border border-slate-200 font-bold rounded-xl text-sm shadow-sm active:bg-gray-50">On Demand</a>
+            <div class="flex justify-center gap-4 flex-wrap reveal-up delay-300 active">
+                <a href="#packages" class="px-8 py-3.5 bg-md-primary text-md-onPrimary font-medium rounded-full text-sm hover-lift active-squish transition-transform">View Plans</a>
+                <a href="#on-demand" class="px-8 py-3.5 border border-md-outline text-md-primary font-medium rounded-full text-sm hover-lift active-squish transition-transform">Single Items</a>
             </div>
         </div>
     </header>
 
     <!-- Monthly Packages Section -->
-    <section id="packages" class="pb-12 container mx-auto px-4 relative z-10">
-        <div class="text-center mb-8">
-            <div class="w-12 h-1 bg-slate-300 mx-auto rounded-full mb-3"></div>
-            <h2 class="text-xl md:text-2xl font-bold text-slate-800">Monthly Subscriptions</h2>
+    <section id="packages" class="pb-16 container mx-auto px-4 relative z-10 scroll-mt-24">
+        <div class="mb-8 pl-2 reveal-up">
+            <h2 class="text-2xl md:text-3xl font-bold text-md-onSurface">Monthly Plans</h2>
+            <p class="text-md-onSurfaceVariant mt-1">Subscribe and save on regular laundry</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto mb-8">
-            
-            <!-- Toddlers -->
-            <div onclick="openModal('Toddlers', '199', 'monthly')" class="glass-card p-5 flex flex-col relative group">
-                <h3 class="text-xl font-bold text-slate-900 mb-1">Toddlers</h3>
-                <div class="flex items-baseline gap-1 mb-3">
-                    <span class="text-2xl font-bold price-text">R 199</span>
-                    <span class="text-xs text-gray-500">/month</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto mb-10">
+            <!-- 1. Toddlers kids -->
+            <div onclick="openModal('Toddlers kids', '280', 'monthly')" class="bg-md-surfaceContainerHigh text-md-onSurface rounded-widget p-7 cursor-pointer flex flex-col elevation-1 hover-lift active-squish reveal-up">
+                <h3 class="text-2xl font-bold mb-1">Toddlers kids</h3>
+                <div class="flex items-baseline gap-1 mb-6">
+                    <span class="text-4xl font-bold text-md-primary monthly-price-display" data-monthly-price="280">R280</span>
+                    <span class="text-sm opacity-80">/mo</span>
                 </div>
-                <ul class="space-y-2 text-gray-600 text-sm mb-5 flex-grow">
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> 1/2 Basket Weekly</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Wash & Dry</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Weekly Pickup</li>
+                <ul class="space-y-3 text-sm mb-8 flex-grow opacity-90">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primary"></i> 1/2 Basket Weekly</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primary"></i> Wash & Dry</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primary"></i> Weekly Pickup</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primary"></i> Basic Detergent</li>
                 </ul>
-                <div class="w-full py-3 border border-slate-800 text-slate-800 text-center font-bold rounded-xl group-active:bg-slate-100 transition">Select</div>
+                <div class="w-full py-3.5 bg-md-surfaceVariant text-md-onSurfaceVariant text-center font-medium rounded-full">Select</div>
             </div>
 
-            <!-- Student -->
-            <div onclick="openModal('Student', '249', 'monthly')" class="glass-card p-5 flex flex-col relative group">
-                <h3 class="text-xl font-bold text-slate-900 mb-1">Student</h3>
-                <div class="flex items-baseline gap-1 mb-3">
-                    <span class="text-2xl font-bold price-text">R 249</span>
-                    <span class="text-xs text-gray-500">/month</span>
+            <!-- 2. Student -->
+            <div onclick="openModal('Student', '349', 'monthly')" class="bg-md-secondaryContainer text-md-onSecondaryContainer rounded-widget p-7 cursor-pointer flex flex-col elevation-1 hover-lift active-squish reveal-up delay-100">
+                <h3 class="text-2xl font-bold mb-1">Student</h3>
+                <div class="flex items-baseline gap-1 mb-6">
+                    <span class="text-4xl font-bold monthly-price-display" data-monthly-price="349">R349</span>
+                    <span class="text-sm opacity-80">/mo</span>
                 </div>
-                <ul class="space-y-2 text-gray-600 text-sm mb-5 flex-grow">
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> 1 Basket Weekly</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Uniform & Socks</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Wash & Dry</li>
+                <ul class="space-y-3 text-sm mb-8 flex-grow opacity-90">
+                    <li class="flex items-center gap-3"><i class="fas fa-check"></i> 1 Basket Weekly (Uniform & Socks)</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check"></i> Wash & Dry</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check"></i> Weekly Pickup</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check"></i> Basic Detergent</li>
                 </ul>
-                <div class="w-full py-3 border border-slate-800 text-slate-800 text-center font-bold rounded-xl group-active:bg-slate-100 transition">Select</div>
+                <div class="w-full py-3.5 bg-md-secondary text-white text-center font-medium rounded-full">Select</div>
             </div>
 
-            <!-- Basic -->
-            <div onclick="openModal('Basic', '349', 'monthly')" class="glass-card p-5 flex flex-col relative group">
-                <h3 class="text-xl font-bold text-slate-900 mb-1">Basic</h3>
-                <div class="flex items-baseline gap-1 mb-3">
-                    <span class="text-2xl font-bold price-text">R 349</span>
-                    <span class="text-xs text-gray-500">/month</span>
+            <!-- 3. Essential -->
+            <div onclick="openModal('Essential', '399', 'monthly')" class="bg-md-tertiaryContainer text-md-onTertiaryContainer rounded-widget p-7 cursor-pointer flex flex-col elevation-1 hover-lift active-squish reveal-up delay-200">
+                <h3 class="text-2xl font-bold mb-1">Essential</h3>
+                <div class="flex items-baseline gap-1 mb-6">
+                    <span class="text-4xl font-bold text-md-tertiary monthly-price-display" data-monthly-price="399">R399</span>
+                    <span class="text-sm opacity-80">/mo</span>
                 </div>
-                <ul class="space-y-2 text-gray-600 text-sm mb-5 flex-grow">
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> 1 Basket Weekly</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Wash, Dry & Fold</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Basic Detergent</li>
+                <ul class="space-y-3 text-sm mb-8 flex-grow opacity-90 font-medium">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-tertiary"></i> 1 Basket Weekly</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-tertiary"></i> Wash & Dry</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-tertiary"></i> Weekly Pickup</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-tertiary"></i> Basic Detergent</li>
                 </ul>
-                <div class="w-full py-3 border border-slate-800 text-slate-800 text-center font-bold rounded-xl group-active:bg-slate-100 transition">Select</div>
+                <div class="w-full py-3.5 bg-md-tertiary text-white text-center font-medium rounded-full">Select Essential</div>
             </div>
 
-            <!-- Standard -->
-            <div onclick="openModal('Standard', '549', 'monthly')" class="glass-card p-5 flex flex-col relative border-2 border-slate-200 group">
-                <div class="absolute top-0 right-0 bg-slate-800 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">MOST POPULAR</div>
-                <h3 class="text-xl font-bold text-slate-900 mb-1">Standard</h3>
-                <div class="flex items-baseline gap-1 mb-3">
-                    <span class="text-2xl font-bold price-text">R 549</span>
-                    <span class="text-xs text-gray-500">/month</span>
+            <!-- 4. Basic -->
+            <div onclick="openModal('Basic', '489', 'monthly')" class="bg-md-surfaceContainerHigh text-md-onSurface rounded-widget p-7 relative cursor-pointer flex flex-col elevation-1 hover-lift active-squish reveal-up">
+                <h3 class="text-2xl font-bold mb-1 mt-1">Basic</h3>
+                <div class="flex items-baseline gap-1 mb-6">
+                    <span class="text-4xl font-bold text-md-primary monthly-price-display" data-monthly-price="489">R489</span>
+                    <span class="text-sm opacity-80">/mo</span>
                 </div>
-                <ul class="space-y-2 text-gray-600 text-sm mb-5 flex-grow">
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i> 2 Baskets Weekly</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i> Wash, Dry & Fold</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i> <strong>Ironing Included</strong></li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-green-500 text-xs"></i> Premium Detergent</li>
+                <ul class="space-y-3 text-sm mb-8 flex-grow opacity-90 font-medium">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primary"></i> 1 Basket Weekly</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primary"></i> Wash & Dry</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primary"></i> Weekly Pickup</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primary"></i> Basic Detergent</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primary"></i> Folding</li>
                 </ul>
-                <div class="w-full py-3 bg-slate-900 text-white text-center font-bold rounded-xl group-active:bg-slate-700 transition shadow-md">Select Standard</div>
+                <div class="w-full py-3.5 bg-md-surfaceVariant text-md-onSurfaceVariant text-center font-medium rounded-full">Select Basic</div>
             </div>
 
-            <!-- Family -->
-            <div onclick="openModal('Family', '849', 'monthly')" class="glass-card p-5 flex flex-col relative group">
-                <h3 class="text-xl font-bold text-slate-900 mb-1">Family</h3>
-                <div class="flex items-baseline gap-1 mb-3">
-                    <span class="text-2xl font-bold price-text">R 849</span>
-                    <span class="text-xs text-gray-500">/month</span>
+            <!-- 5. Everyday -->
+            <div onclick="openModal('Everyday', '629', 'monthly')" class="bg-md-secondaryContainer text-md-onSecondaryContainer rounded-widget p-7 cursor-pointer flex flex-col elevation-1 hover-lift active-squish reveal-up delay-100">
+                <div class="absolute top-5 right-6 bg-md-secondary text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider animate-pulse">Great Value</div>
+                <h3 class="text-2xl font-bold mb-1 mt-1">Everyday</h3>
+                <div class="flex items-baseline gap-1 mb-6">
+                    <span class="text-4xl font-bold monthly-price-display" data-monthly-price="629">R629</span>
+                    <span class="text-sm opacity-80">/mo</span>
                 </div>
-                <ul class="space-y-2 text-gray-600 text-sm mb-5 flex-grow">
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> 3 Baskets Weekly</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Wash, Dry & Iron</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Folding Included</li>
+                <ul class="space-y-3 text-sm mb-8 flex-grow font-medium">
+                    <li class="flex items-center gap-3"><i class="fas fa-check"></i> 2 Baskets Weekly</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check"></i> Wash & Dry</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check"></i> Weekly Pickup</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check"></i> Basic Detergent</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check"></i> Folding</li>
                 </ul>
-                <div class="w-full py-3 border border-slate-800 text-slate-800 text-center font-bold rounded-xl group-active:bg-slate-100 transition">Select</div>
+                <div class="w-full py-3.5 bg-md-secondary text-white text-center font-medium rounded-full">Select Everyday</div>
             </div>
 
-            <!-- Premium -->
-            <div onclick="openModal('Premium', '949', 'monthly')" class="glass-card p-5 flex flex-col relative group">
-                <h3 class="text-xl font-bold text-slate-900 mb-1">Premium</h3>
-                <div class="flex items-baseline gap-1 mb-3">
-                    <span class="text-2xl font-bold price-text">R 949</span>
-                    <span class="text-xs text-gray-500">/month</span>
+            <!-- 6. Standard -->
+            <div onclick="openModal('Standard', '769', 'monthly')" class="bg-md-primaryContainer text-md-onPrimaryContainer rounded-widget p-7 relative cursor-pointer flex flex-col elevation-1 hover-lift active-squish reveal-up delay-200">
+                <div class="absolute top-5 right-6 bg-md-primary text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider animate-pulse">Popular</div>
+                <h3 class="text-2xl font-bold mb-1 mt-1">Standard</h3>
+                <div class="flex items-baseline gap-1 mb-6">
+                    <span class="text-4xl font-bold monthly-price-display" data-monthly-price="769">R769</span>
+                    <span class="text-sm opacity-80">/mo</span>
                 </div>
-                <ul class="space-y-2 text-gray-600 text-sm mb-5 flex-grow">
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> 3 Baskets Weekly</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Wash, Dry & Iron</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-star text-yellow-500 text-xs"></i> <strong>Bedding</strong> (1/mo)</li>
-                    <li class="flex items-center gap-3"><i class="fas fa-star text-yellow-500 text-xs"></i> <strong>Shoes</strong> (1 pair/wk)</li>
+                <ul class="space-y-3 text-sm mb-8 flex-grow font-medium">
+                    <li class="flex items-center gap-3"><i class="fas fa-check"></i> 2 Baskets Weekly</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check"></i> Wash & Dry</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check"></i> Weekly Pickup</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check"></i> Premium Detergent</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check"></i> Folding</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check"></i> Ironing</li>
                 </ul>
-                <div class="w-full py-3 border border-slate-800 text-slate-800 text-center font-bold rounded-xl group-active:bg-slate-100 transition">Select</div>
+                <div class="w-full py-3.5 bg-md-primary text-white text-center font-medium rounded-full">Select Standard</div>
             </div>
 
-            <!-- Deluxe -->
-            <div onclick="openModal('Deluxe', '1499', 'monthly')" class="glass-card p-5 flex flex-col relative md:col-span-2 lg:col-span-3 bg-white border border-slate-200 group">
-                <div class="absolute top-0 right-0 bg-amber-400 text-slate-900 text-[10px] font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">ULTIMATE LUXURY</div>
-                <h3 class="text-xl font-bold text-slate-900 mb-1">Deluxe</h3>
-                <div class="flex items-baseline gap-1 mb-3">
-                    <span class="text-2xl font-bold price-text">R 1499</span>
-                    <span class="text-xs text-gray-500">/month</span>
+            <!-- 7. Family -->
+            <div onclick="openModal('Family', '1189', 'monthly')" class="bg-md-surfaceContainerHigh text-md-onSurface rounded-widget p-7 cursor-pointer flex flex-col elevation-1 hover-lift active-squish reveal-up">
+                <h3 class="text-2xl font-bold mb-1">Family</h3>
+                <div class="flex items-baseline gap-1 mb-6">
+                    <span class="text-4xl font-bold text-md-primary monthly-price-display" data-monthly-price="1189">R1189</span>
+                    <span class="text-sm opacity-80">/mo</span>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left max-w-4xl mb-4">
-                    <ul class="space-y-2 text-gray-600 text-sm">
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> 4 Baskets Weekly</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Wash, Dry, Iron & Fold</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-check text-slate-400 text-xs"></i> Premium Detergent & Softener</li>
-                    </ul>
-                    <ul class="space-y-2 text-gray-600 text-sm">
-                        <li class="flex items-center gap-3"><i class="fas fa-star text-amber-500 text-xs"></i> <strong>Bedding/Blanket</strong> (1 set/wk)</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-star text-amber-500 text-xs"></i> <strong>Shoes Included</strong> (2 pairs/wk)</li>
-                        <li class="flex items-center gap-3"><i class="fas fa-star text-amber-500 text-xs"></i> Priority Turnaround</li>
-                    </ul>
+                <ul class="space-y-3 text-sm mb-8 flex-grow opacity-90 font-medium">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primary"></i> 3 Baskets Weekly</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primary"></i> Wash & Dry</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primary"></i> Weekly Pickup</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primary"></i> Premium Detergent</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primary"></i> Folding</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primary"></i> Ironing</li>
+                </ul>
+                <div class="w-full py-3.5 bg-md-surfaceVariant text-md-onSurfaceVariant text-center font-medium rounded-full">Select Family</div>
+            </div>
+
+            <!-- 8. Premium -->
+            <div onclick="openModal('Premium', '1329', 'monthly')" class="bg-md-tertiaryContainer text-md-onTertiaryContainer rounded-widget p-7 cursor-pointer flex flex-col elevation-1 hover-lift active-squish reveal-up delay-100">
+                <h3 class="text-2xl font-bold mb-1">Premium</h3>
+                <div class="flex items-baseline gap-1 mb-6">
+                    <span class="text-4xl font-bold text-md-tertiary monthly-price-display" data-monthly-price="1329">R1329</span>
+                    <span class="text-sm opacity-80">/mo</span>
                 </div>
-                <div class="w-full max-w-md mx-auto py-3 bg-slate-900 text-white text-center font-bold rounded-xl group-active:bg-slate-700 transition shadow-sm">Select Deluxe</div>
+                <ul class="space-y-3 text-sm mb-8 flex-grow opacity-90 font-medium">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-tertiary"></i> 3 Baskets Weekly</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-tertiary"></i> Wash & Dry</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-tertiary"></i> Weekly Pickup</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-tertiary"></i> Premium Detergent</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-tertiary"></i> Folding</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-tertiary"></i> Bedding (1 set)</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-tertiary"></i> Shoes (2 pairs)</li>
+                </ul>
+                <div class="w-full py-3.5 bg-md-tertiary text-white text-center font-medium rounded-full">Select Premium</div>
+            </div>
+
+            <!-- 9. Deluxe -->
+            <div onclick="openModal('Deluxe', '2099', 'monthly')" class="bg-md-primary text-md-onPrimary rounded-widget p-7 cursor-pointer flex flex-col elevation-2 hover-lift active-squish reveal-up delay-200 relative">
+                 <div class="absolute top-5 right-6 bg-md-primaryContainer text-md-onPrimaryContainer text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider animate-pulse">Luxury</div>
+                <h3 class="text-2xl font-bold mb-1 mt-1">Deluxe</h3>
+                <div class="flex items-baseline gap-1 mb-6">
+                    <span class="text-4xl font-bold monthly-price-display" data-monthly-price="2099">R2099</span>
+                    <span class="text-sm opacity-80">/mo</span>
+                </div>
+                <ul class="space-y-3 text-sm mb-8 flex-grow font-medium opacity-90">
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primaryContainer"></i> 4 Baskets Weekly</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primaryContainer"></i> Wash & Dry</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primaryContainer"></i> Weekly Pickup</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primaryContainer"></i> Premium Detergent</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-check text-md-primaryContainer"></i> Folding & Ironing Included</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-star text-md-primaryContainer"></i> Bedding (1 set weekly)</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-star text-md-primaryContainer"></i> Shoes (2 pairs weekly)</li>
+                </ul>
+                <div class="w-full py-3.5 bg-white text-md-primary text-center font-bold rounded-full shadow-sm">Select Deluxe</div>
             </div>
         </div>
 
-        <!-- Add-ons Visual Display -->
-        <div class="mt-6 max-w-4xl mx-auto">
-            <h3 class="text-base font-bold text-slate-800 text-center mb-3 opacity-70">Customize Your Monthly Plan</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <!-- Add-on 1 -->
-                <button onclick="selectPreAddon('Blanket (1)')" class="bg-white/60 p-3 rounded-xl border border-slate-200 flex items-center justify-between shadow-sm cursor-pointer active:bg-white transition group text-left w-full">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
-                            <i class="fas fa-layer-group text-sm"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold text-sm text-slate-800">Add Blanket</p>
-                        </div>
-                    </div>
-                    <span class="font-bold text-indigo-600 text-sm">+R150</span>
+        <!-- Add-ons Chips -->
+        <div class="max-w-7xl mx-auto pl-2 mt-4 reveal-up">
+            <h3 class="text-sm font-bold text-md-onSurfaceVariant uppercase tracking-wider mb-3">Optional Add-ons</h3>
+            <div class="flex flex-wrap gap-4 pt-2">
+                <button onclick="selectPreAddon('Blanket')" class="relative px-5 py-2.5 bg-md-surfaceContainerHigh text-md-onSurface rounded-xl text-sm font-medium border border-md-outline/20 hover-lift active-squish transition-all">
+                    <i class="fas fa-layer-group text-md-primary mr-2"></i> Blanket <span class="text-md-primary font-bold ml-1">+R210</span>
+                    <span class="absolute -top-2.5 -right-2 bg-[#c3f2c7] text-[#002105] text-[9px] font-bold px-2 py-0.5 rounded-full uppercase border border-white shadow-sm">25% Off 2+</span>
                 </button>
-                <!-- Add-on 2 -->
-                <button onclick="selectPreAddon('Shoes (4 pairs)')" class="bg-white/60 p-3 rounded-xl border border-slate-200 flex items-center justify-between shadow-sm cursor-pointer active:bg-white transition group text-left w-full">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-cyan-100 flex items-center justify-center text-cyan-600">
-                            <i class="fas fa-shoe-prints text-sm"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold text-sm text-slate-800">Add Shoes</p>
-                        </div>
-                    </div>
-                    <span class="font-bold text-cyan-600 text-sm">+R200</span>
+                <button onclick="selectPreAddon('Shoes')" class="relative px-5 py-2.5 bg-md-surfaceContainerHigh text-md-onSurface rounded-xl text-sm font-medium border border-md-outline/20 hover-lift active-squish transition-all">
+                    <i class="fas fa-shoe-prints text-md-primary mr-2"></i> Shoes <span class="text-md-primary font-bold ml-1">+R280</span>
+                    <span class="absolute -top-2.5 -right-2 bg-[#c3f2c7] text-[#002105] text-[9px] font-bold px-2 py-0.5 rounded-full uppercase border border-white shadow-sm">25% Off 2+</span>
                 </button>
-                <!-- Add-on 3 -->
-                <button onclick="selectPreAddon('Extra Basket')" class="bg-white/60 p-3 rounded-xl border border-slate-200 flex items-center justify-between shadow-sm cursor-pointer active:bg-white transition group text-left w-full">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
-                            <i class="fas fa-shopping-basket text-sm"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold text-sm text-slate-800">Extra Basket</p>
-                        </div>
-                    </div>
-                    <span class="font-bold text-emerald-600 text-sm">+R200</span>
+                <button onclick="selectPreAddon('Extra Basket')" class="relative px-5 py-2.5 bg-md-surfaceContainerHigh text-md-onSurface rounded-xl text-sm font-medium border border-md-outline/20 hover-lift active-squish transition-all">
+                    <i class="fas fa-shopping-basket text-md-primary mr-2"></i> Extra Basket <span class="text-md-primary font-bold ml-1">+R280</span>
+                    <span class="absolute -top-2.5 -right-2 bg-[#c3f2c7] text-[#002105] text-[9px] font-bold px-2 py-0.5 rounded-full uppercase border border-white shadow-sm">25% Off 2+</span>
                 </button>
             </div>
-            <p class="text-[10px] text-center text-gray-400 mt-2"><i class="fas fa-info-circle mr-1"></i> Tap an add-on, then select your plan above.</p>
         </div>
     </section>
-
+    
     <!-- On Demand Section -->
-    <section id="on-demand" class="pb-20 container mx-auto px-4 relative z-10">
-        <div class="text-center mb-8">
-            <h2 class="text-xl md:text-2xl font-bold text-slate-800">On Demand Services</h2>
-            <p class="text-gray-500 mt-1 text-xs">Single items, cleaned to perfection.</p>
+    <section id="on-demand" class="py-12 pb-32 container mx-auto px-4 relative z-10 border-t border-md-surfaceVariant reveal-up scroll-mt-24">
+        <div class="mb-6 pl-2">
+            <h2 class="text-2xl md:text-3xl font-bold text-md-onSurface">Single Items</h2>
+            <p class="text-md-onSurfaceVariant mt-1">Book items without a subscription</p>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-7xl mx-auto">
-            <!-- Blanket Card -->
-            <div onclick="openModal('Blanket Cleaning', '149', 'blanket')" class="glass-card p-5 flex flex-col text-center relative border border-orange-200 overflow-hidden group">
-                <div class="absolute top-0 right-0 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">HOT DEAL</div>
-                
-                <h3 class="text-xl font-bold text-slate-900 mb-1">Blanket Cleaning</h3>
-                <p class="text-[10px] text-gray-400 mb-3 uppercase tracking-wider">Heavy Duty Wash</p>
-
-                <div class="flex items-baseline justify-center gap-1 mb-5">
-                    <span class="text-3xl font-bold text-orange-600">R 149</span>
-                    <span class="text-sm font-medium text-gray-500">/item</span>
+        
+        <div class="flex overflow-x-auto gap-4 pb-8 no-scrollbar -mx-4 px-4 snap-x py-2">
+            <!-- Shoes -->
+            <div onclick="openModal('Shoe Cleaning', '84', 'shoe')" class="bg-md-surfaceContainer rounded-widget min-w-[200px] p-6 flex flex-col items-start cursor-pointer snap-center elevation-1 hover-lift active-squish relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-[#c3f2c7] text-[#002105] text-[9px] font-bold px-3 py-1.5 rounded-bl-xl uppercase tracking-wider shadow-sm">25% OFF 2+</div>
+                <div class="w-14 h-14 bg-md-primaryContainer text-md-onPrimaryContainer rounded-2xl flex items-center justify-center text-xl mb-4 transition-transform duration-300 transform group-hover:rotate-12 mt-2">
+                    <i class="fas fa-shoe-prints"></i>
                 </div>
-
-                <div class="bg-orange-50 rounded-xl p-3 mb-4 border border-orange-100 relative z-10" onclick="event.stopPropagation()">
-                    <p class="text-[10px] font-bold text-orange-800 mb-2 uppercase tracking-wide"><i class="fas fa-tags"></i> Bulk Specials</p>
-                    <div class="grid grid-cols-3 gap-2">
-                        <button onclick="openModal('2 Blankets', '223', 'simple')" class="py-2 bg-white border border-orange-200 rounded-lg text-[10px] font-bold text-slate-700 active:bg-orange-500 active:text-white transition">2 @ R223</button>
-                        <button onclick="openModal('3 Blankets', '335', 'simple')" class="py-2 bg-white border border-orange-200 rounded-lg text-[10px] font-bold text-slate-700 active:bg-orange-500 active:text-white transition">3 @ R335</button>
-                        <button onclick="openModal('4 Blankets', '447', 'simple')" class="py-2 bg-white border border-orange-200 rounded-lg text-[10px] font-bold text-slate-700 active:bg-orange-500 active:text-white transition">4 @ R447</button>
-                    </div>
-                </div>
-                
-                <div class="mt-auto w-full py-3 bg-slate-900 text-white text-center font-bold rounded-xl group-active:bg-slate-700 transition shadow-md">Book 1 Blanket</div>
+                <h4 class="font-bold text-md-onSurface text-lg">Sneakers</h4>
+                <p class="text-sm text-md-onSurfaceVariant mb-4">Deep clean</p>
+                <span class="font-bold text-md-primary text-xl mt-auto">R84</span>
             </div>
 
-            <!-- Shoe Cleaning Card -->
-            <div onclick="openModal('Shoe Cleaning', '99', 'shoe')" class="glass-card p-5 flex flex-col text-center relative border border-cyan-200 overflow-hidden group">
-                <div class="absolute top-0 right-0 bg-cyan-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">FRESH KICKS</div>
-
-                <h3 class="text-xl font-bold text-slate-900 mb-1">Shoe Cleaning</h3>
-                <p class="text-[10px] text-gray-400 mb-3 uppercase tracking-wider">Deep Clean & Dry</p>
-
-                <div class="flex items-baseline justify-center gap-1 mb-5">
-                    <span class="text-3xl font-bold text-cyan-600">R 99</span>
-                    <span class="text-sm font-medium text-gray-500">/pair</span>
+            <!-- Ironing -->
+            <div onclick="openModal('Ironing Only', '190', 'ironing')" class="bg-md-surfaceContainer rounded-widget min-w-[200px] p-6 flex flex-col items-start cursor-pointer snap-center elevation-1 hover-lift active-squish relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-[#c3f2c7] text-[#002105] text-[9px] font-bold px-3 py-1.5 rounded-bl-xl uppercase tracking-wider shadow-sm">25% OFF 2+</div>
+                <div class="w-14 h-14 bg-md-secondaryContainer text-md-onSecondaryContainer rounded-2xl flex items-center justify-center text-xl mb-4 mt-2">
+                    <i class="fas fa-tshirt"></i>
                 </div>
-
-                <!-- Bulk Discount Banner -->
-                <div class="bg-cyan-50 rounded-xl p-3 mb-4 border border-cyan-100 relative z-10" onclick="event.stopPropagation()">
-                    <p class="text-[10px] font-bold text-cyan-800 mb-2 uppercase tracking-wide"><i class="fas fa-tags"></i> Bulk Special</p>
-                    <button onclick="openModal('Shoe Cleaning', '99', 'shoe')" class="w-full py-2 bg-white border border-cyan-200 rounded-lg text-xs font-bold text-slate-700 active:bg-cyan-600 active:text-white transition shadow-sm">
-                        Get 30% OFF on 5+ Pairs!
-                    </button>
-                </div>
-                
-                <div class="mt-auto w-full py-3 bg-slate-900 text-white text-center font-bold rounded-xl group-active:bg-slate-700 transition shadow-md">Book 1 Pair</div>
+                <h4 class="font-bold text-md-onSurface text-lg">Ironing</h4>
+                <p class="text-sm text-md-onSurfaceVariant mb-4">Per basket</p>
+                <span class="font-bold text-md-primary text-xl mt-auto">R190</span>
             </div>
 
-            <!-- Ironing Card -->
-            <div onclick="openModal('Ironing Service', '12', 'ironing')" class="glass-card p-5 flex flex-col text-center relative border border-indigo-200 overflow-hidden group">
-                <div class="absolute top-0 right-0 bg-indigo-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">CRISP LOOK</div>
-
-                <h3 class="text-xl font-bold text-slate-900 mb-1">Ironing / Pressing</h3>
-                <p class="text-[10px] text-gray-400 mb-3 uppercase tracking-wider">Professional Finish</p>
-
-                <div class="flex items-baseline justify-center gap-1 mb-5">
-                    <span class="text-3xl font-bold text-indigo-600">R 12</span>
-                    <span class="text-sm font-medium text-gray-500">/item</span>
+             <!-- Blankets -->
+             <div onclick="openModal('Blanket Cleaning', '210', 'blanket')" class="bg-md-surfaceContainer rounded-widget min-w-[200px] p-6 flex flex-col items-start cursor-pointer snap-center elevation-1 hover-lift active-squish relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-[#c3f2c7] text-[#002105] text-[9px] font-bold px-3 py-1.5 rounded-bl-xl uppercase tracking-wider shadow-sm">25% OFF 2+</div>
+                <div class="w-14 h-14 bg-md-tertiaryContainer text-md-onTertiaryContainer rounded-2xl flex items-center justify-center text-xl mb-4 mt-2">
+                    <i class="fas fa-layer-group"></i>
                 </div>
-                
-                <div class="bg-indigo-50 rounded-xl p-3 mb-4 border border-indigo-100">
-                    <p class="text-[10px] font-bold text-indigo-800 mb-1 uppercase tracking-wide"><i class="fas fa-info-circle"></i> Info</p>
-                    <p class="text-xs text-indigo-700">Perfect for shirts, trousers, and delicate items.</p>
-                </div>
-
-                <div class="mt-auto w-full py-3 bg-slate-900 text-white text-center font-bold rounded-xl group-active:bg-slate-700 transition shadow-md">Book Ironing</div>
+                <h4 class="font-bold text-md-onSurface text-lg">Blankets</h4>
+                <p class="text-sm text-md-onSurfaceVariant mb-4">Any size</p>
+                <span class="font-bold text-md-primary text-xl mt-auto">R210</span>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="text-center py-8 relative z-10 pb-24">
-        <div class="container mx-auto px-4">
-            <h2 class="text-lg font-bold text-slate-900 mb-5">Contact Us</h2>
+    <!-- BOOKING MODAL -->
+    <div id="bookingModal" class="fixed inset-0 bg-black/40 z-[100] hidden flex items-end justify-center transition-opacity opacity-0 backdrop-blur-sm">
+        <div class="absolute inset-0" onclick="closeModal()"></div>
+        
+        <div id="modalContent" class="bg-md-surfaceContainerLow w-full md:max-w-lg rounded-t-[32px] md:rounded-[32px] shadow-2xl transform translate-y-full transition-transform duration-300 flex flex-col max-h-[90vh] relative z-10 md:mb-10 will-change-transform">
             
-            <div class="flex flex-col items-center justify-center gap-3 mb-6">
-                <!-- Phone Call Link -->
-                <a href="tel:0734194517" class="text-base font-bold text-slate-700 hover:text-slate-900 bg-white px-5 py-2 rounded-full shadow-sm hover:shadow-md transition active:scale-95">
-                    <i class="fas fa-phone mr-2 text-slate-400"></i> 073 419 4517
-                </a>
-                
-                <!-- WhatsApp Link -->
-                <a href="https://wa.me/27847916397" class="text-base font-bold text-slate-700 hover:text-green-600 bg-white px-5 py-2 rounded-full shadow-sm hover:shadow-md transition active:scale-95">
-                    <i class="fab fa-whatsapp mr-2 text-green-500"></i> 084 791 6397
-                </a>
+            <div id="bookingDragHandle" class="w-full flex justify-center pt-5 pb-3 cursor-grab active:cursor-grabbing">
+                <div class="w-12 h-1.5 bg-md-outline opacity-40 rounded-full"></div>
             </div>
 
-            <!-- Share Location Link -->
-            <div onclick="shareLocation()" class="free-delivery-text text-lg font-bold mb-2 cursor-pointer hover:text-green-700 transition flex items-center justify-center gap-2 group active:scale-95 select-none">
-                <i class="fas fa-truck-fast"></i> 
-                <span>All Deliveries are Free</span>
-                <i class="fas fa-location-dot text-sm ml-1 opacity-50 group-hover:opacity-100 animate-pulse"></i>
-            </div>
-            
-            <div class="mt-4 text-gray-400 text-[10px]">
-                © 2023 Ora Laundry Service. All rights reserved.
-            </div>
-        </div>
-    </footer>
-
-    <!-- Booking Modal -->
-    <div id="bookingModal" class="fixed inset-0 bg-slate-900/50 z-50 hidden flex items-center justify-center p-4 backdrop-blur-none transition-opacity duration-300">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform transition-all scale-95 opacity-0 modal-scroll" id="modalContent">
-            
-            <div class="p-4 border-b border-gray-100 flex justify-between items-center sticky top-0 bg-white z-10 rounded-t-2xl">
+            <div class="px-6 pb-4 flex justify-between items-start">
                 <div>
-                    <h3 class="text-lg font-bold text-gray-800">Booking Details</h3>
-                    <p class="text-xs text-orange-500 font-bold" id="modalPackageName">Package Name</p>
+                    <h3 class="text-2xl font-bold text-md-onSurface pop-anim" id="modalPackageName">Package</h3>
+                    <p class="text-md-primary font-bold text-lg" id="headerPrice">R0.00</p>
                 </div>
-                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 active:bg-gray-200 transition">
+                <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-md-surfaceContainerHigh text-md-onSurfaceVariant flex items-center justify-center active-squish transition-colors hover:bg-md-surfaceVariant">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
 
-            <div class="p-5">
-                <p class="text-sm text-gray-500 mb-4 bg-slate-50 p-3 rounded-lg border border-slate-100">
-                    You are selecting the <span id="modalPackageText" class="font-bold text-gray-800"></span> package.
-                </p>
-
-                <!-- Quantity Selector (Visible for On-Demand) -->
-                <div id="modalQuantitySection" class="hidden mb-6 text-center">
-                    <label class="block text-xs font-bold uppercase text-gray-500 mb-2">How many items?</label>
-                    <div class="inline-flex items-center justify-center bg-gray-100 rounded-xl p-1">
-                        <button type="button" onclick="adjustQuantity(-1)" class="qty-btn bg-white shadow-sm text-gray-600 active:bg-gray-200 text-lg">-</button>
-                        <span id="quantityDisplay" class="w-12 text-center font-bold text-xl text-slate-800">1</span>
-                        <button type="button" onclick="adjustQuantity(1)" class="qty-btn bg-white shadow-sm text-gray-600 active:bg-gray-200 text-lg">+</button>
-                    </div>
-                    <!-- Dynamic Discount Badge -->
-                    <div id="discountBadge" class="hidden mt-2">
-                        <span id="discountText" class="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-full">
-                            <i class="fas fa-tag mr-1"></i> Bulk Discount Applied!
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Add-ons Section (Monthly Only) -->
-                <div id="modalAddons" class="hidden border-t border-b border-gray-100 py-3 my-3">
-                    <p class="text-xs font-bold uppercase text-gray-500 mb-3 ml-1">Recurring Plan Add-ons</p>
-                    
-                    <!-- Monthly: Blanket -->
-                    <div class="flex items-center justify-between p-2 mb-2 rounded-lg border border-gray-200 bg-white">
-                        <div class="flex flex-col">
-                            <span class="text-sm font-bold text-gray-800">Add Blanket (Monthly)</span>
-                            <span class="text-xs text-indigo-600 font-bold" id="price-blanket-monthly">+R150</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div onclick="updateAddonQuantity('blanket-monthly', -1)" class="qty-btn bg-gray-100 active:bg-gray-200 text-gray-600">-</div>
-                            <span id="qty-blanket-monthly" class="w-6 text-center font-bold text-sm text-slate-800">0</span>
-                            <div onclick="updateAddonQuantity('blanket-monthly', 1)" class="qty-btn bg-gray-100 active:bg-gray-200 text-gray-600">+</div>
-                        </div>
-                    </div>
-
-                    <!-- Monthly: Shoes -->
-                    <div class="flex items-center justify-between p-2 mb-2 rounded-lg border border-gray-200 bg-white">
-                        <div class="flex flex-col">
-                            <span class="text-sm font-bold text-gray-800">Add Shoes (4 pairs)</span>
-                            <span class="text-xs text-cyan-600 font-bold" id="price-shoes-monthly">+R200</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div onclick="updateAddonQuantity('shoes-monthly', -1)" class="qty-btn bg-gray-100 active:bg-gray-200 text-gray-600">-</div>
-                            <span id="qty-shoes-monthly" class="w-6 text-center font-bold text-sm text-slate-800">0</span>
-                            <div onclick="updateAddonQuantity('shoes-monthly', 1)" class="qty-btn bg-gray-100 active:bg-gray-200 text-gray-600">+</div>
-                        </div>
-                    </div>
-
-                    <!-- Monthly: Basket -->
-                    <div class="flex items-center justify-between p-2 mb-2 rounded-lg border border-gray-200 bg-white">
-                        <div class="flex flex-col">
-                            <span class="text-sm font-bold text-gray-800">Extra Basket</span>
-                            <span class="text-xs text-emerald-600 font-bold" id="price-basket-monthly">+R200</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div onclick="updateAddonQuantity('basket-monthly', -1)" class="qty-btn bg-gray-100 active:bg-gray-200 text-gray-600">-</div>
-                            <span id="qty-basket-monthly" class="w-6 text-center font-bold text-sm text-slate-800">0</span>
-                            <div onclick="updateAddonQuantity('basket-monthly', 1)" class="qty-btn bg-gray-100 active:bg-gray-200 text-gray-600">+</div>
+            <div class="px-6 py-2 overflow-y-auto modal-scroll">
+                
+                <div id="modalQuantitySection" class="hidden mb-6 bg-md-surfaceContainer rounded-2xl p-4 transition-all">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-md-onSurfaceVariant">Quantity</span>
+                        <div class="flex items-center gap-4">
+                            <button onclick="adjustQuantity(-1)" class="w-10 h-10 rounded-full bg-md-surfaceContainerHighest text-md-onSurface flex items-center justify-center active-squish transition-transform"><i class="fas fa-minus text-sm"></i></button>
+                            <span id="quantityDisplay" class="text-xl font-bold text-md-onSurface w-6 text-center transition-all">1</span>
+                            <button onclick="adjustQuantity(1)" class="w-10 h-10 rounded-full bg-md-primaryContainer text-md-onPrimaryContainer flex items-center justify-center active-squish transition-transform"><i class="fas fa-plus text-sm"></i></button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Booking Form -->
-                <form id="bookingForm" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-500 mb-1 ml-1">Full Name</label>
-                        <input type="text" id="customerName" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-slate-800 focus:border-slate-800 outline-none transition text-sm" placeholder="e.g. John Doe">
-                    </div>
+                <div id="modalAddons" class="mb-6 space-y-2 hidden">
+                    <p class="text-sm font-medium text-md-onSurfaceVariant mb-3">Optional Extras <span class="text-[10px] text-md-primary font-bold ml-1 tracking-widest">(25% OFF 2+)</span></p>
                     
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-500 mb-1 ml-1">Phone Number</label>
-                        <input type="tel" id="customerPhone" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-slate-800 focus:border-slate-800 outline-none transition text-sm" placeholder="e.g. 082 123 4567">
-                    </div>
-
-                    <input type="hidden" id="selectedPrice" value="">
-                    <input type="hidden" id="selectedPackage" value="">
-                    
-                    <div class="pt-2 flex flex-col gap-3">
-                        <button type="button" onclick="processAction('pay')" class="w-full py-3.5 bg-slate-900 text-white font-bold rounded-xl active:bg-slate-800 transition shadow-lg flex justify-center items-center gap-2 group">
-                            <span>Pay R<span id="payButtonPrice">0</span> Now</span>
-                            <i class="fas fa-lock text-xs opacity-50"></i>
-                        </button>
-
-                        <div class="relative flex py-1 items-center">
-                            <div class="flex-grow border-t border-gray-200"></div>
-                            <span class="flex-shrink-0 mx-4 text-gray-300 text-xs font-semibold">OR</span>
-                            <div class="flex-grow border-t border-gray-200"></div>
+                    <div class="flex items-center justify-between p-4 bg-md-surfaceContainer rounded-2xl transition-colors hover:bg-md-surfaceContainerHigh">
+                        <div>
+                            <p class="text-base font-medium text-md-onSurface">Blanket</p>
+                            <p class="text-sm text-md-primary font-medium" id="price-blanket-monthly">+R210</p>
                         </div>
+                        <div class="flex items-center gap-3">
+                            <button onclick="updateAddonQuantity('blanket-monthly', -1)" class="w-8 h-8 rounded-full bg-md-surfaceContainerHighest text-md-onSurfaceVariant flex items-center justify-center active-squish"><i class="fas fa-minus text-xs"></i></button>
+                            <span id="qty-blanket-monthly" class="text-base font-bold text-md-onSurface w-4 text-center">0</span>
+                            <button onclick="updateAddonQuantity('blanket-monthly', 1)" class="w-8 h-8 rounded-full bg-md-secondaryContainer text-md-onSecondaryContainer flex items-center justify-center active-squish"><i class="fas fa-plus text-xs"></i></button>
+                        </div>
+                    </div>
 
-                        <button type="button" onclick="processAction('inquire')" class="w-full py-3.5 border-2 border-green-500 text-green-600 font-bold rounded-xl active:bg-green-50 transition flex justify-center items-center gap-2">
-                            <span>Book via WhatsApp</span>
-                            <i class="fab fa-whatsapp text-lg"></i>
-                        </button>
+                    <div class="flex items-center justify-between p-4 bg-md-surfaceContainer rounded-2xl transition-colors hover:bg-md-surfaceContainerHigh">
+                        <div>
+                            <p class="text-base font-medium text-md-onSurface">Shoes (4 pairs)</p>
+                            <p class="text-sm text-md-primary font-medium" id="price-shoes-monthly">+R280</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button onclick="updateAddonQuantity('shoes-monthly', -1)" class="w-8 h-8 rounded-full bg-md-surfaceContainerHighest text-md-onSurfaceVariant flex items-center justify-center active-squish"><i class="fas fa-minus text-xs"></i></button>
+                            <span id="qty-shoes-monthly" class="text-base font-bold text-md-onSurface w-4 text-center">0</span>
+                            <button onclick="updateAddonQuantity('shoes-monthly', 1)" class="w-8 h-8 rounded-full bg-md-secondaryContainer text-md-onSecondaryContainer flex items-center justify-center active-squish"><i class="fas fa-plus text-xs"></i></button>
+                        </div>
                     </div>
                     
-                    <p class="text-[10px] text-center text-gray-400 mt-2">
-                        <i class="fas fa-shield-alt mr-1"></i> Secure payment
-                    </p>
-                </form>
+                    <div class="flex items-center justify-between p-4 bg-md-surfaceContainer rounded-2xl transition-colors hover:bg-md-surfaceContainerHigh">
+                        <div>
+                            <p class="text-base font-medium text-md-onSurface">Extra Basket</p>
+                            <p class="text-sm text-md-primary font-medium" id="price-basket-monthly">+R280</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button onclick="updateAddonQuantity('basket-monthly', -1)" class="w-8 h-8 rounded-full bg-md-surfaceContainerHighest text-md-onSurfaceVariant flex items-center justify-center active-squish"><i class="fas fa-minus text-xs"></i></button>
+                            <span id="qty-basket-monthly" class="text-base font-bold text-md-onSurface w-4 text-center">0</span>
+                            <button onclick="updateAddonQuantity('basket-monthly', 1)" class="w-8 h-8 rounded-full bg-md-secondaryContainer text-md-onSecondaryContainer flex items-center justify-center active-squish"><i class="fas fa-plus text-xs"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4 mb-4">
+                    <div class="relative bg-md-surfaceContainerHighest rounded-t-md border-b-[2px] border-md-outline focus-within:border-md-primary transition-colors">
+                        <label class="absolute text-[11px] text-md-onSurfaceVariant top-2 left-4">Full Name</label>
+                        <input type="text" id="customerName" class="w-full bg-transparent pt-6 pb-2 px-4 text-md-onSurface outline-none font-medium text-base" placeholder=" ">
+                    </div>
+                    
+                    <div class="relative bg-md-surfaceContainerHighest rounded-t-md border-b-[2px] border-md-outline focus-within:border-md-primary transition-colors">
+                        <label class="absolute text-[11px] text-md-onSurfaceVariant top-2 left-4">Phone Number</label>
+                        <input type="tel" id="customerPhone" class="w-full bg-transparent pt-6 pb-2 px-4 text-md-onSurface outline-none font-medium text-base" placeholder=" ">
+                    </div>
+                    
+                    <button onclick="shareLocation()" class="w-full py-3.5 bg-md-secondaryContainer text-md-onSecondaryContainer rounded-full text-sm font-medium active-squish flex items-center justify-center gap-2 mt-2 transition-colors">
+                        <i class="fas fa-map-marker-alt pop-anim"></i> Share Delivery Location
+                    </button>
+                    <input type="hidden" id="locationLink">
+                </div>
+
+            </div>
+
+            <div class="p-4 pt-2 pb-6 flex flex-col gap-2">
+                <input type="hidden" id="selectedPackage">
+                <input type="hidden" id="selectedPrice">
+                
+                <button onclick="processAction('card')" class="w-full py-4 bg-md-primary text-md-onPrimary rounded-full font-medium active-squish text-base flex justify-center items-center gap-2 transition-all shadow-md hover:shadow-lg">
+                    Pay <span id="payButtonPrice" class="pop-anim">R0</span> (Card)
+                </button>
+                
+                <button onclick="processAction('cash')" class="w-full py-3 border border-md-outline text-md-primary rounded-full font-medium active-squish text-sm transition-colors hover:bg-md-surfaceContainerLow">
+                    Book & Pay Cash (WhatsApp)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI ASSISTANT MODAL -->
+    <div id="aiModal" class="fixed inset-0 bg-black/40 z-[100] hidden flex items-end justify-center transition-opacity opacity-0 backdrop-blur-sm">
+        <div class="absolute inset-0" onclick="closeAIModal()"></div>
+
+        <div id="aiModalContent" class="bg-md-surface w-full md:max-w-md rounded-t-[32px] md:rounded-[32px] shadow-2xl flex flex-col h-[85vh] md:h-[600px] overflow-hidden relative z-10 transform translate-y-full transition-transform duration-300 md:mb-10 will-change-transform">
+            
+            <div id="aiDragHandle" class="w-full flex justify-center pt-5 pb-3 cursor-grab active:cursor-grabbing">
+                <div class="w-12 h-1.5 bg-md-outline opacity-40 rounded-full"></div>
+            </div>
+
+            <div class="px-4 pb-2 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-md-tertiaryContainer text-md-onTertiaryContainer rounded-full flex items-center justify-center pop-anim">
+                        <i class="fas fa-sparkles"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-md-onSurface">Ora Assistant</h3>
+                        <p class="text-xs text-md-onSurfaceVariant">Ask about services & pricing</p>
+                    </div>
+                </div>
+                <button onclick="closeAIModal()" class="w-10 h-10 rounded-full hover:bg-md-surfaceContainerHighest text-md-onSurfaceVariant flex items-center justify-center active-squish transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div id="chatContainer" class="flex-grow overflow-y-auto p-4 bg-md-surfaceContainerLowest space-y-4">
+                <div class="chat-bubble-ai elevation-1">
+                    👋 Hi! I'm Ora, your laundry assistant. Ask me about our monthly subscriptions, single items, pricing, or how our free pickup and delivery works!
+                </div>
+                
+                <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+                    <button onclick="sendQuickQuery('What is included in the Everyday plan?')" class="whitespace-nowrap px-4 py-2 border border-md-outline text-md-onSurface rounded-lg text-sm font-medium active-squish transition-colors hover:bg-md-surfaceContainer">Everyday Plan</button>
+                    <button onclick="sendQuickQuery('How much does it cost to clean sneakers?')" class="whitespace-nowrap px-4 py-2 border border-md-outline text-md-onSurface rounded-lg text-sm font-medium active-squish transition-colors hover:bg-md-surfaceContainer">Sneaker Cleaning</button>
+                    <button onclick="sendQuickQuery('Do you offer ironing services?')" class="whitespace-nowrap px-4 py-2 border border-md-outline text-md-onSurface rounded-lg text-sm font-medium active-squish transition-colors hover:bg-md-surfaceContainer">Ironing</button>
+                </div>
+            </div>
+
+            <div class="p-3 bg-md-surfaceContainer">
+                <div class="flex items-center gap-2 bg-md-surfaceContainerHighest rounded-full px-2 py-1 focus-within:ring-2 focus-within:ring-md-primary transition-all">
+                    <input type="text" id="aiInput" placeholder="Message Ora..." class="flex-grow bg-transparent outline-none text-base px-3 py-2 text-md-onSurface" onkeyup="if(event.key === 'Enter') sendUserMessage()">
+                    <button onclick="sendUserMessage()" class="w-10 h-10 bg-md-primary text-md-onPrimary rounded-full flex items-center justify-center active-squish flex-shrink-0 transition-transform">
+                        <i class="fas fa-arrow-up text-sm"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // --- Gemini API Setup ---
+        const apiKey = ""; // Runtime provides this
+
+        // --- Core App Logic & Interactions ---
         const modal = document.getElementById('bookingModal');
         const modalContent = document.getElementById('modalContent');
         const body = document.body;
         const modalAddons = document.getElementById('modalAddons');
         const modalQuantitySection = document.getElementById('modalQuantitySection');
         const quantityDisplay = document.getElementById('quantityDisplay');
-        const discountBadge = document.getElementById('discountBadge');
-        const discountText = document.getElementById('discountText');
 
         let preselectedAddon = null;
         let currentBasePrice = 0;
         let currentMode = 'simple'; 
         let currentQuantity = 1;
+        let globalSubscriptionDiscount = 0;
+        let discountSource = ""; // 'Welcome', 'Loyalty', 'EasterEgg', or 'TimeReward'
+        let hasBooked = false;
 
-        // Data structure to track addon quantities
+        // --- Interactive "Easter Egg" Triggers & Reward System ---
+        let eggWasherFound = false;
+        let eggTruckFound = false;
+        let eggUnlocked = false;
+
+        function triggerTruckRush() {
+            const overlay = document.getElementById('truckOverlay');
+            const truck = document.getElementById('truckElement');
+            
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+            truck.classList.remove('animate-truck-rush');
+            truck.classList.remove('opacity-0');
+            void truck.offsetWidth; // trigger reflow
+            truck.classList.add('animate-truck-rush');
+
+            if (!eggTruckFound && !eggUnlocked) {
+                eggTruckFound = true;
+                checkEasterEggUnlock();
+            }
+
+            setTimeout(() => {
+                truck.classList.add('opacity-0');
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                    overlay.classList.remove('flex');
+                }, 100);
+            }, 1600);
+        }
+
+        function triggerWashingMachine() {
+            const logo = document.getElementById('oraLogo');
+            const drum = document.getElementById('oraDrum');
+            
+            logo.classList.add('shake-machine');
+            drum.classList.add('spin-drum');
+
+            if (!eggWasherFound && !eggUnlocked) {
+                eggWasherFound = true;
+                checkEasterEggUnlock();
+            }
+
+            setTimeout(() => {
+                logo.classList.remove('shake-machine');
+                drum.classList.remove('spin-drum');
+            }, 2500);
+        }
+
+        function checkEasterEggUnlock() {
+            if (eggWasherFound && eggTruckFound && !eggUnlocked) {
+                eggUnlocked = true;
+                setTimeout(() => {
+                    const secretModal = document.getElementById('secretModal');
+                    secretModal.classList.remove('hidden');
+                    secretModal.classList.add('flex');
+                    body.classList.add('modal-open');
+                    requestAnimationFrame(() => {
+                        secretModal.classList.remove('opacity-0');
+                    });
+                }, 1500); 
+            }
+        }
+
+        function claimSecretDiscount() {
+            const secretModal = document.getElementById('secretModal');
+            secretModal.classList.add('opacity-0');
+            setTimeout(() => {
+                secretModal.classList.add('hidden');
+                secretModal.classList.remove('flex');
+                body.classList.remove('modal-open');
+                
+                fireConfetti();
+                applyGlobalDiscount(0.10, "EasterEgg");
+            }, 300);
+        }
+
+        function fireConfetti() {
+            const colors = ['#4355B9', '#DEE0FF', '#FFD7F1', '#c3f2c7', '#5B5D72'];
+            for(let i=0; i<60; i++) {
+                let conf = document.createElement('div');
+                conf.className = 'confetti rounded-sm';
+                conf.style.width = Math.random() * 10 + 6 + 'px';
+                conf.style.height = Math.random() * 10 + 6 + 'px';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.animation = `fall ${Math.random() * 2 + 2.5}s linear forwards`;
+                conf.style.opacity = Math.random() + 0.5;
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 5000);
+            }
+        }
+
+        // --- FLASH DEAL TIME REWARD (630 seconds / 10.5 Mins) ---
+        setTimeout(() => {
+            // Only trigger if they haven't booked yet AND they don't already have 15%+ off
+            if (!hasBooked && globalSubscriptionDiscount < 0.15) {
+                showTimeRewardModal();
+            }
+        }, 630000); // 630,000 ms = 630s
+
+        function showTimeRewardModal() {
+            if(eggUnlocked) return; // don't interrupt secret egg reward screen
+            
+            const trModal = document.getElementById('timeRewardModal');
+            const trContent = document.getElementById('timeRewardContent');
+            trModal.classList.remove('hidden');
+            trModal.classList.add('flex');
+            body.classList.add('modal-open');
+            requestAnimationFrame(() => {
+                trModal.classList.remove('opacity-0');
+                trContent.classList.add('animate-modal-pop');
+                trContent.classList.remove('scale-50', 'opacity-0');
+            });
+        }
+
+        function closeTimeRewardModal() {
+            const trModal = document.getElementById('timeRewardModal');
+            const trContent = document.getElementById('timeRewardContent');
+            trModal.classList.add('opacity-0');
+            trContent.classList.remove('animate-modal-pop');
+            trContent.classList.add('scale-50', 'opacity-0');
+            setTimeout(() => {
+                trModal.classList.add('hidden');
+                trModal.classList.remove('flex');
+                if(document.getElementById('bookingModal').classList.contains('hidden') && document.getElementById('exitModal').classList.contains('hidden')) {
+                    body.classList.remove('modal-open');
+                }
+            }, 300);
+        }
+
+        function claimTimeDiscount() {
+            closeTimeRewardModal();
+            fireConfetti();
+            applyGlobalDiscount(0.15, 'TimeReward');
+        }
+
+        // --- Exit Intent Logic (FOMO Style) ---
+        const exitModal = document.getElementById('exitModal');
+        const exitModalContent = document.getElementById('exitModalContent');
+        let exitIntentTriggered = false;
+
+        function showExitModal() {
+            if(exitIntentTriggered || document.body.classList.contains('modal-open') || eggUnlocked) return;
+            exitIntentTriggered = true;
+            
+            exitModal.classList.remove('hidden');
+            body.classList.add('modal-open');
+            requestAnimationFrame(() => {
+                exitModal.classList.remove('opacity-0');
+                exitModalContent.classList.add('animate-modal-pop');
+                exitModalContent.classList.remove('scale-50', 'opacity-0');
+            });
+        }
+
+        function closeExitModal() {
+            exitModal.classList.add('opacity-0');
+            exitModalContent.classList.remove('animate-modal-pop');
+            exitModalContent.classList.add('scale-50', 'opacity-0');
+            setTimeout(() => {
+                exitModal.classList.add('hidden');
+                if(!document.getElementById('bookingModal').classList.contains('hidden') === false) {
+                    body.classList.remove('modal-open');
+                }
+            }, 300);
+        }
+
+        function applyExitDiscount(rate, sourceName) {
+            closeExitModal();
+            fireConfetti();
+            applyGlobalDiscount(rate, sourceName);
+        }
+
+        // --- SHARED DISCOUNT APPLIER ---
+        function applyGlobalDiscount(rate, sourceName) {
+            // Only update if it's a better discount 
+            // e.g., if they had 5% but stuck around for 630s to unlock 15%
+            if (rate > globalSubscriptionDiscount) {
+                globalSubscriptionDiscount = rate;
+                discountSource = sourceName;
+                
+                const percent = rate * 100;
+                let msg = `🎉 UNLOCKED: ${percent}% OFF ALL MONTHLY PLANS!`;
+                if(sourceName === 'EasterEgg') msg = `🕵️‍♂️ SECRET FOUND: ${percent}% OFF APPLIED!`;
+                if(sourceName === 'TimeReward') msg = `⏳ FLASH DEAL: ${percent}% OFF APPLIED!`;
+                showToast(msg);
+                
+                document.querySelectorAll('.monthly-price-display').forEach(el => {
+                    let origPrice = parseInt(el.getAttribute('data-monthly-price'));
+                    let newPrice = Math.round(origPrice * (1 - rate));
+                    el.innerHTML = `<span class="text-lg line-through text-md-onSurfaceVariant/70 mr-1 font-normal">R${origPrice}</span>R${newPrice}`;
+                    
+                    el.classList.remove('pop-anim');
+                    void el.offsetWidth;
+                    el.classList.add('pop-anim');
+                });
+
+                setTimeout(() => {
+                    document.getElementById('packages').scrollIntoView({ behavior: 'smooth' });
+                }, 500);
+
+                if(!modal.classList.contains('hidden')) updateTotalPrice();
+            }
+        }
+
+        // Triggers for Exit Intent
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY <= 0 || e.clientX <= 0 || (e.clientX >= window.innerWidth || e.clientY >= window.innerHeight)) showExitModal();
+        });
+        setTimeout(() => { showExitModal(); }, 35000); // 35 sec idle
+
+        // --- Observer & Utilities ---
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal-up').forEach((el) => { observer.observe(el); });
+        });
+
+        function triggerPop(elementId) {
+            const el = document.getElementById(elementId);
+            if(el) {
+                el.classList.remove('pop-anim');
+                void el.offsetWidth;
+                el.classList.add('pop-anim');
+            }
+        }
+
+        // --- Swipe to Close Logic ---
+        function initSwipeToClose(handleId, contentId, closeFunction) {
+            const handle = document.getElementById(handleId);
+            const content = document.getElementById(contentId);
+            let startY = 0, currentY = 0, isDragging = false;
+
+            handle.addEventListener('touchstart', (e) => {
+                startY = e.touches[0].clientY;
+                isDragging = true;
+                content.style.transition = 'none'; 
+            }, { passive: true });
+
+            handle.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                currentY = e.touches[0].clientY;
+                let diff = currentY - startY;
+                if (diff > 0) content.style.transform = `translateY(${diff}px)`;
+            }, { passive: true });
+
+            handle.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
+                let diff = currentY - startY;
+                content.style.transition = 'transform 0.3s cubic-bezier(0.2, 0, 0, 1)';
+                if (diff > 80) closeFunction();
+                else content.style.transform = ''; 
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initSwipeToClose('bookingDragHandle', 'modalContent', closeModal);
+            initSwipeToClose('aiDragHandle', 'aiModalContent', closeAIModal);
+        });
+
+        // --- Core Booking Logic ---
         let addonData = {
-            'blanket-monthly': { qty: 0, price: 150, name: 'Blanket (Monthly)' },
-            'shoes-monthly': { qty: 0, price: 200, name: 'Shoes (4 pairs)' },
-            'basket-monthly': { qty: 0, price: 200, name: 'Extra Basket' }
+            'blanket-monthly': { qty: 0, price: 210, name: 'Blanket (Monthly)' },
+            'shoes-monthly': { qty: 0, price: 280, name: 'Shoes (4 pairs)' },
+            'basket-monthly': { qty: 0, price: 280, name: 'Extra Basket' }
         };
 
         function selectPreAddon(name) {
             preselectedAddon = name;
             document.getElementById('packages').scrollIntoView({ behavior: 'smooth' });
-            showToast(`"${name}" selected! Now choose a monthly plan.`);
+            showToast(`Please select a Monthly Plan first to add the ${name} extra!`);
         }
 
         function openModal(packageName, price, mode = 'simple') {
@@ -642,275 +1012,347 @@
             currentMode = mode;
             currentQuantity = 1; 
             
+            triggerPop('modalPackageName');
+
             // Reset Add-ons
             for (let key in addonData) {
                 addonData[key].qty = 0;
-                document.getElementById(`qty-${key}`).innerText = '0';
+                const qtyEl = document.getElementById(`qty-${key}`);
+                if (qtyEl) qtyEl.innerText = '0';
                 
-                // Reset Price Text Styles
                 let displayPrice = `+R${addonData[key].price}`;
-                let priceEl = document.getElementById(`price-${key}`);
-                priceEl.innerText = displayPrice;
-                priceEl.className = "text-xs text-indigo-600 font-bold";
-                // Restore original styling classes
-                if(key.includes('shoes')) priceEl.className = "text-xs text-cyan-600 font-bold";
-                if(key.includes('basket')) priceEl.className = "text-xs text-emerald-600 font-bold";
+                const priceEl = document.getElementById(`price-${key}`);
+                if (priceEl) priceEl.innerText = displayPrice;
             }
 
             document.getElementById('modalPackageName').innerText = packageName;
-            document.getElementById('modalPackageText').innerText = packageName;
-            quantityDisplay.innerText = "1";
+            if(quantityDisplay) quantityDisplay.innerText = "1";
             
             document.getElementById('selectedPackage').value = packageName;
             document.getElementById('selectedPrice').value = currentBasePrice;
 
-            // Mode Logic
             if(mode === 'monthly') {
                 modalAddons.classList.remove('hidden');
                 modalQuantitySection.classList.add('hidden');
                 
                 if (preselectedAddon) {
-                   // Map preselection to addon key
                    if(preselectedAddon.includes('Blanket')) updateAddonQuantity('blanket-monthly', 1);
                    if(preselectedAddon.includes('Shoes')) updateAddonQuantity('shoes-monthly', 1);
                    if(preselectedAddon.includes('Basket')) updateAddonQuantity('basket-monthly', 1);
                    preselectedAddon = null; 
                 }
             } 
-            else if (mode === 'blanket' || mode === 'shoe' || mode === 'ironing') {
-                modalAddons.classList.add('hidden');
-                modalQuantitySection.classList.remove('hidden');
-                discountBadge.classList.add('hidden');
-            }
             else {
                 modalAddons.classList.add('hidden');
-                modalQuantitySection.classList.add('hidden');
+                modalQuantitySection.classList.remove('hidden');
             }
 
             updateTotalPrice();
+            
+            document.getElementById('customerName').value = localStorage.getItem('ora_name') || '';
+            document.getElementById('customerPhone').value = localStorage.getItem('ora_phone') || '';
 
-            // Lock Body Scroll
             body.classList.add('modal-open');
-
             modal.classList.remove('hidden');
-            setTimeout(() => {
-                modalContent.classList.remove('scale-95', 'opacity-0');
-                modalContent.classList.add('scale-100', 'opacity-100');
-            }, 10);
+            
+            requestAnimationFrame(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.style.transform = ''; 
+                modalContent.classList.remove('translate-y-full');
+            });
         }
 
         function closeModal() {
-            modalContent.classList.remove('scale-100', 'opacity-100');
-            modalContent.classList.add('scale-95', 'opacity-0');
+            if (!modalContent || !modal) return;
+            modalContent.classList.add('translate-y-full');
+            modal.classList.add('opacity-0');
             setTimeout(() => {
                 modal.classList.add('hidden');
-                // Unlock Body Scroll
+                modalContent.style.transform = ''; 
                 body.classList.remove('modal-open');
             }, 300);
         }
 
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) closeModal();
-        });
-
-        // --- Location Sharing Logic ---
-        function shareLocation() {
-            showToast("Accessing Location...");
-            
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition, showError);
-            } else {
-                // Fallback for no support
-                window.open("https://wa.me/27847916397?text=Hi%20Ora%20Laundry,%20please%20send%20me%20your%20location%20pin.", "_blank");
-            }
-        }
-
-        function showPosition(position) {
-            const lat = position.coords.latitude;
-            const long = position.coords.longitude;
-            const mapLink = `https://www.google.com/maps/search/?api=1&query=${lat},${long}`;
-            const message = `Hi Ora Laundry, here is my delivery location for the free delivery:%0A${mapLink}`;
-            window.open(`https://wa.me/27847916397?text=${message}`, "_blank");
-        }
-
-        function showError(error) {
-            // Fallback if user denies permission
-            showToast("Location access denied. Opening WhatsApp...");
-            setTimeout(() => {
-                const message = "Hi Ora Laundry, I'd like to share my location for the free delivery.";
-                window.open(`https://wa.me/27847916397?text=${message}`, "_blank");
-            }, 1500);
-        }
-
-
-        // --- On Demand Main Quantity Logic ---
         function adjustQuantity(amount) {
             let newQty = currentQuantity + amount;
             if (newQty < 1) newQty = 1;
             if (newQty > 100) newQty = 100; 
             currentQuantity = newQty;
             quantityDisplay.innerText = currentQuantity;
+            triggerPop('quantityDisplay');
             updateTotalPrice();
         }
 
-        // --- Add-on Quantity Logic ---
         function updateAddonQuantity(key, change) {
             let newQty = addonData[key].qty + change;
             if (newQty < 0) newQty = 0;
             addonData[key].qty = newQty;
             document.getElementById(`qty-${key}`).innerText = newQty;
+            triggerPop(`qty-${key}`);
             updateTotalPrice();
         }
 
         function updateTotalPrice() {
             let total = 0;
+            let isDiscounted = false;
+            let originalTotal = 0;
 
             if (currentMode === 'monthly') {
-                total = currentBasePrice;
+                let discountedBasePrice = currentBasePrice;
+                if (globalSubscriptionDiscount > 0) {
+                    discountedBasePrice = Math.round(currentBasePrice * (1 - globalSubscriptionDiscount));
+                }
                 
-                // Calculate Add-ons
+                total = discountedBasePrice;
+                let addonsTotal = 0;
+
                 for (let key in addonData) {
                     let item = addonData[key];
                     let priceEl = document.getElementById(`price-${key}`);
-                    
-                    // Determine base color class
-                    let colorClass = "text-indigo-600"; 
-                    if(key.includes('shoes')) colorClass = "text-cyan-600";
-                    if(key.includes('basket')) colorClass = "text-emerald-600";
+                    if (!priceEl) continue;
 
                     if (item.qty > 0) {
-                        let itemTotal = item.qty * item.price;
-                        let discountedTotal = itemTotal;
-                        let isDiscounted = false;
-
-                        // Discount Logic for Add-ons (Same as On-Demand logic if applicable)
-                        // 1. Blanket Logic (2+ = 25% OFF)
-                        if (key.includes('blanket') && item.qty >= 2) {
-                            discountedTotal = itemTotal * 0.75;
-                            isDiscounted = true;
-                        }
+                        let originalItemTotal = item.qty * item.price;
+                        let itemTotal = originalItemTotal;
                         
-                        let finalSubtotal = Math.ceil(discountedTotal);
-                        
-                        // Update Price Text UI with Unit Price AND Subtotal
-                        if (isDiscounted) {
-                            priceEl.innerHTML = `<span class="text-[10px] text-gray-400 mr-1">R${item.price}/ea</span> <span class="text-green-600 font-bold">Total: R${finalSubtotal} (Bulk)</span>`;
+                        if (item.qty >= 2) {
+                            itemTotal = Math.round(originalItemTotal * 0.75);
+                            priceEl.innerHTML = `<span class="text-xs line-through text-md-onSurfaceVariant mr-1">R${originalItemTotal}</span>+R${itemTotal} (${item.qty}) <span class="text-[9px] bg-[#c3f2c7] text-[#002105] px-1.5 py-0.5 rounded-full ml-1 align-middle uppercase tracking-wider font-bold shadow-sm">25% Off</span>`;
                         } else {
-                            priceEl.innerHTML = `<span class="text-[10px] text-gray-400 mr-1">R${item.price}/ea</span> <span class="${colorClass} font-bold">Total: R${finalSubtotal}</span>`;
+                            priceEl.innerHTML = `+R${itemTotal} (${item.qty})`;
                         }
                         
-                        total += finalSubtotal;
+                        addonsTotal += itemTotal;
                     } else {
-                        // Reset if qty is 0
-                        priceEl.innerText = `+R${item.price}`;
-                        priceEl.className = `text-xs ${colorClass} font-bold`;
+                        priceEl.innerHTML = `+R${item.price}`;
                     }
                 }
-            } 
-            else if (currentMode === 'blanket') {
-                let subtotal = currentQuantity * currentBasePrice; 
-                if (currentQuantity >= 2) {
-                    subtotal = subtotal * 0.75;
-                    discountText.innerHTML = '<i class="fas fa-tag mr-1"></i> 25% Bulk Discount Applied!';
-                    discountBadge.classList.remove('hidden');
+                
+                total += addonsTotal;
+
+                if (globalSubscriptionDiscount > 0) {
+                    let origBaseWithAddons = currentBasePrice + addonsTotal;
+                    document.getElementById('headerPrice').innerHTML = `<span class="text-sm line-through text-md-onSurfaceVariant mr-2 font-normal">R${origBaseWithAddons}</span>R${total} <span class="text-[10px] bg-[#c3f2c7] text-[#002105] px-2 py-1 rounded-full ml-1 align-middle uppercase tracking-wider font-bold shadow-sm">${globalSubscriptionDiscount*100}% Off Base</span>`;
                 } else {
-                    discountBadge.classList.add('hidden');
+                    document.getElementById('headerPrice').innerText = `R${total}`;
                 }
-                total = Math.ceil(subtotal);
             } 
-            else if (currentMode === 'shoe') {
-                let subtotal = currentQuantity * currentBasePrice; 
-                if (currentQuantity >= 5) {
-                    subtotal = subtotal * 0.70; 
-                    discountText.innerHTML = '<i class="fas fa-tag mr-1"></i> 30% Bulk Discount Applied!';
-                    discountBadge.classList.remove('hidden');
-                } else {
-                    discountBadge.classList.add('hidden');
-                }
-                total = Math.ceil(subtotal);
-            }
-            else if (currentMode === 'ironing') {
-                total = currentQuantity * currentBasePrice; 
-                discountBadge.classList.add('hidden');
-            }
             else {
-                total = currentBasePrice;
+                originalTotal = currentQuantity * currentBasePrice;
+                if (currentQuantity > 1) {
+                    total = Math.round(originalTotal * 0.75);
+                    isDiscounted = true;
+                } else {
+                    total = originalTotal;
+                }
+                
+                if (isDiscounted) {
+                    document.getElementById('headerPrice').innerHTML = `<span class="text-sm line-through text-md-onSurfaceVariant mr-2 font-normal">R${originalTotal}</span>R${total} <span class="text-[10px] bg-[#c3f2c7] text-[#002105] px-2 py-1 rounded-full ml-1 align-middle uppercase tracking-wider font-bold shadow-sm">25% Off</span>`;
+                } else {
+                    document.getElementById('headerPrice').innerText = `R${total}`;
+                }
             }
 
-            document.getElementById('payButtonPrice').innerText = total;
+            document.getElementById('payButtonPrice').innerText = `R${total}`;
+            triggerPop('payButtonPrice');
+            triggerPop('headerPrice');
             return total;
         }
 
         function showToast(message) {
             var x = document.getElementById("toast");
             x.innerText = message;
-            x.className = "show";
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+            x.classList.add("show");
+            setTimeout(function(){ x.classList.remove("show"); }, 3500);
+        }
+        
+         function shareLocation() {
+            triggerPop('locationLink');
+            showToast("Accessing Location...");
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                         const lat = position.coords.latitude;
+                         const long = position.coords.longitude;
+                         const mapLink = `https://www.google.com/maps/search/?api=1&query=${lat},${long}`;
+                         document.getElementById('locationLink').value = mapLink;
+                         showToast("Location saved for delivery.");
+                    },
+                    (error) => { showToast("Location denied. You can send it on WhatsApp later."); }
+                );
+            } else { showToast("Geolocation not supported on this device."); }
         }
 
         function processAction(type) {
             const name = document.getElementById('customerName').value.trim();
             const phone = document.getElementById('customerPhone').value.trim();
             const pkg = document.getElementById('selectedPackage').value;
-            
             const finalPrice = updateTotalPrice();
+            const locLink = document.getElementById('locationLink').value;
 
-            if (!name || !phone) {
-                showToast("Please fill in Name and Phone first.");
-                if(!name) document.getElementById('customerName').classList.add('border-red-400');
-                if(!phone) document.getElementById('customerPhone').classList.add('border-red-400');
+             if (!name || !phone) {
+                showToast("Please enter Full Name and Phone Number.");
+                triggerPop('customerName'); triggerPop('customerPhone');
                 return;
             }
+            
+            localStorage.setItem('ora_name', name);
+            localStorage.setItem('ora_phone', phone);
+            
+            // Mark as booked to prevent flash sale modal from triggering after purchase
+            hasBooked = true; 
 
-            document.getElementById('customerName').classList.remove('border-red-400');
-            document.getElementById('customerPhone').classList.remove('border-red-400');
-
-            if (type === 'pay') {
+            if (type === 'card') {
                 const priceInRands = finalPrice.toString().replace(/\s/g, '');
                 const yocoBaseLink = "https://pay.yoco.com/oratile";
-                const yocoLink = `${yocoBaseLink}?amount=${priceInRands}`;
-                
-                showToast("Redirecting to Secure Payment...");
-                setTimeout(() => {
-                    window.open(yocoLink, '_blank');
-                }, 1000);
-
+                window.open(`${yocoBaseLink}?amount=${priceInRands}`, '_blank');
+                closeModal();
             } 
-            else if (type === 'inquire') {
-                let message = `Hi Ora Laundry,%0A%0AI would like to book:%0A`;
+            else if (type === 'cash') {
+                let message = `Hi Ora Laundry,%0A%0AI would like to book (Paying CASH):%0A`;
+                message += `*${pkg}*`;
+                
+                if (currentMode === 'monthly') {
+                    if (globalSubscriptionDiscount > 0) {
+                        let discBase = Math.round(currentBasePrice * (1 - globalSubscriptionDiscount));
+                        let promoName = "Welcome Discount";
+                        if(discountSource === 'EasterEgg') promoName = "Secret Easter Egg Discount";
+                        if(discountSource === 'Loyalty') promoName = "Loyalty Return Discount";
+                        if(discountSource === 'TimeReward') promoName = "Flash Deal (15%)";
+                        
+                        message += ` (R${currentBasePrice} -> R${discBase} with ${globalSubscriptionDiscount*100}% ${promoName} applied)`;
+                    }
 
-                if (currentMode === 'blanket') {
-                    message += `*${currentQuantity}x Blanket Cleaning*`;
-                    if(currentQuantity >= 2) message += `%0A_(25% Bulk Discount Applied)_`;
-                } 
-                else if (currentMode === 'shoe') {
-                    message += `*${currentQuantity}x Pairs of Shoes*`;
-                    if(currentQuantity >= 5) message += `%0A_(30% Bulk Discount Applied)_`;
-                }
-                else if (currentMode === 'ironing') {
-                    message += `*${currentQuantity}x Items Ironing*`;
-                }
-                else {
-                    message += `*${pkg}*`;
-                    if (currentMode === 'monthly') {
-                        let addonsMsg = "";
-                        for (let key in addonData) {
-                            if (addonData[key].qty > 0) {
-                                addonsMsg += `%0A- ${addonData[key].qty}x ${addonData[key].name}`;
+                    let addonsMsg = "";
+                    for (let key in addonData) {
+                        let item = addonData[key];
+                        if (item.qty > 0) {
+                            let origPrice = item.qty * item.price;
+                            if (item.qty >= 2) {
+                                let discPrice = Math.round(origPrice * 0.75);
+                                addonsMsg += `%0A- ${item.qty}x ${item.name} (R${discPrice} -> 25% OFF Applied!)`;
+                            } else {
+                                addonsMsg += `%0A- ${item.qty}x ${item.name} (R${origPrice})`;
                             }
                         }
-                        if(addonsMsg) {
-                            message += `%0A%0A*Add-ons:*${addonsMsg}`;
-                        }
                     }
+                    if(addonsMsg) message += `%0A%0A*Add-ons:*${addonsMsg}`;
+                } else {
+                     message += ` (Qty: ${currentQuantity})`;
+                     if (currentQuantity > 1) message += `%0A*Discount Applied:* 25% OFF`;
                 }
-
-                message += `%0A%0A*Total: R${finalPrice}*`;
-                message += `%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A%0A(Booking via Web)`;
                 
-                const whatsappUrl = `https://wa.me/27847916397?text=${message}`;
-                window.open(whatsappUrl, '_blank');
+                message += `%0A%0A*Total: R${finalPrice}*`;
+                message += `%0A%0A*Name:* ${name}%0A*Phone:* ${phone}`;
+                if(locLink) message += `%0A*Location:* ${encodeURIComponent(locLink)}`;
+                
+                window.open(`https://wa.me/27847916399?text=${message}`, '_blank');
                 closeModal();
+            }
+        }
+
+        // --- AI ASSISTANT FUNCTIONS ---
+        const aiModal = document.getElementById('aiModal');
+        const aiModalContent = document.getElementById('aiModalContent');
+
+        function openAIModal() {
+            body.classList.add('modal-open');
+            aiModal.classList.remove('hidden');
+            requestAnimationFrame(() => {
+                aiModal.classList.remove('opacity-0');
+                aiModalContent.style.transform = ''; 
+                aiModalContent.classList.remove('translate-y-full');
+            });
+            setTimeout(() => document.getElementById('aiInput').focus(), 300);
+        }
+
+        function closeAIModal() {
+            aiModalContent.classList.add('translate-y-full');
+            aiModal.classList.add('opacity-0');
+            setTimeout(() => {
+                aiModal.classList.add('hidden');
+                aiModalContent.style.transform = ''; 
+                if(document.getElementById('bookingModal').classList.contains('hidden')){ body.classList.remove('modal-open'); }
+            }, 300);
+        }
+
+        function sendQuickQuery(query) {
+            const input = document.getElementById('aiInput');
+            input.value = query; sendUserMessage();
+        }
+
+        async function sendUserMessage() {
+            const input = document.getElementById('aiInput');
+            const message = input.value.trim();
+            const container = document.getElementById('chatContainer');
+            
+            if (!message) return;
+
+            const userBubble = document.createElement('div');
+            userBubble.className = 'chat-bubble-user';
+            userBubble.innerText = message;
+            container.appendChild(userBubble);
+            
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+
+            const loadingBubble = document.createElement('div');
+            loadingBubble.className = 'chat-bubble-ai typing-indicator';
+            loadingBubble.innerHTML = '<span></span><span></span><span></span>';
+            loadingBubble.id = 'aiLoading';
+            container.appendChild(loadingBubble);
+            container.scrollTop = container.scrollHeight;
+
+            try {
+                const response = await callGeminiAPI(message);
+                const loader = document.getElementById('aiLoading');
+                if(loader) loader.remove();
+
+                const aiBubble = document.createElement('div');
+                aiBubble.className = 'chat-bubble-ai';
+                let formattedResponse = response.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+                formattedResponse = formattedResponse.replace(/\n/g, '<br>');
+                aiBubble.innerHTML = formattedResponse;
+                
+                container.appendChild(aiBubble);
+                container.scrollTop = container.scrollHeight;
+
+            } catch (error) {
+                console.error(error);
+                const loader = document.getElementById('aiLoading');
+                if(loader) loader.remove();
+                
+                const errorBubble = document.createElement('div');
+                errorBubble.className = 'chat-bubble-ai text-md-error bg-red-50 border-red-100';
+                errorBubble.innerText = "Oops! I'm having trouble connecting. Please try again or message us on WhatsApp.";
+                container.appendChild(errorBubble);
+            }
+        }
+
+        async function callGeminiAPI(userQuery) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const systemPrompt = "You are 'Ora', the helpful AI assistant for Ora Laundry Service. You are friendly, professional, and use emojis. Your SOLE purpose is to answer questions about our specific services, pricing, and processes. DO NOT give general laundry advice or stain removal tips. If asked about those, politely redirect the user to ask about our packages or single items.\n\nOur Menu & Pricing:\n- Free pickup & delivery included.\n- Monthly Subscriptions: Toddlers kids (R280), Student (R349), Essential (R399), Basic (R489), Everyday (R629), Standard (R769), Family (R1189), Premium (R1329), Deluxe (R2099).\n- Single Items: Blanket (R210), Sneakers (R84), Ironing (R190/basket).\n- DEAL 1: Get 25% OFF when you order 2 or more of the same Single Item OR Optional Add-on!\n- DEAL 2: First time customers get 10% off subscriptions, returning get 5% (prompts automatically if they try to leave).\n\nKeep answers concise (under 60 words) and easy to read.";
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            let retries = 0;
+            const delays = [1000, 2000, 4000, 8000, 16000];
+
+            while (retries <= 5) {
+                try {
+                    const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    const data = await response.json();
+                    
+                    if (data.candidates && data.candidates[0].content) return data.candidates[0].content.parts[0].text;
+                    else if (response.status === 429 && retries < 5) { await new Promise(resolve => setTimeout(resolve, delays[retries])); retries++; } 
+                    else throw new Error("No response from Gemini");
+                } catch (error) {
+                     if (retries < 5) { await new Promise(resolve => setTimeout(resolve, delays[retries])); retries++; } 
+                     else throw error;
+                }
             }
         }
     </script>

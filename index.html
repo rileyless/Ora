@@ -632,7 +632,8 @@
                 <div class="space-y-4 mb-4">
                     <div class="relative bg-md-surfaceContainerHighest rounded-t-md border-b-[2px] border-md-outline focus-within:border-md-primary transition-colors">
                         <label class="absolute text-[11px] text-md-onSurfaceVariant top-2 left-4">Full Name</label>
-                        <input type="text" id="customerName" class="w-full bg-transparent pt-6 pb-2 px-4 text-md-onSurface outline-none font-medium text-base" placeholder=" ">
+                        <!-- Added the oninput trigger here for VIP tracking -->
+                        <input type="text" id="customerName" class="w-full bg-transparent pt-6 pb-2 px-4 text-md-onSurface outline-none font-medium text-base" placeholder=" " oninput="checkVipStatus(this.value)">
                     </div>
                     
                     <div class="relative bg-md-surfaceContainerHighest rounded-t-md border-b-[2px] border-md-outline focus-within:border-md-primary transition-colors">
@@ -728,8 +729,28 @@
         let currentMode = 'simple'; 
         let currentQuantity = 1;
         let globalSubscriptionDiscount = 0;
-        let discountSource = ""; // 'Welcome', 'Loyalty', 'EasterEgg', or 'TimeReward'
+        let discountSource = ""; // 'Welcome', 'Loyalty', 'EasterEgg', 'TimeReward', or 'VIP Status'
         let hasBooked = false;
+
+        // --- DYNAMIC VIP NAME RECOGNITION ---
+        let vipDiscountApplied = false;
+
+        function checkVipStatus(val) {
+            // Only trigger if they haven't triggered it yet
+            if(vipDiscountApplied) return;
+            
+            // Matches any variation of VIP or VVIP (e.g., vip, v.i.p., VVIP, V.V.I.P) as a distinct word
+            const vipRegex = /\b(v\.?v\.?i\.?p\.?|v\.?i\.?p\.?)\b/i;
+            
+            if(vipRegex.test(val)) {
+                vipDiscountApplied = true;
+                
+                // If they type VIP, apply 10% (unless they already have a better discount like the 15% flash deal)
+                // We pass it to applyGlobalDiscount which has a safety check built in
+                fireConfetti();
+                applyGlobalDiscount(0.10, 'VIP Status');
+            }
+        }
 
         // --- Interactive "Easter Egg" Triggers & Reward System ---
         let eggWasherFound = false;
@@ -825,14 +846,13 @@
 
         // --- FLASH DEAL TIME REWARD (630 seconds / 10.5 Mins) ---
         setTimeout(() => {
-            // Only trigger if they haven't booked yet AND they don't already have 15%+ off
             if (!hasBooked && globalSubscriptionDiscount < 0.15) {
                 showTimeRewardModal();
             }
-        }, 630000); // 630,000 ms = 630s
+        }, 630000); 
 
         function showTimeRewardModal() {
-            if(eggUnlocked) return; // don't interrupt secret egg reward screen
+            if(eggUnlocked) return; 
             
             const trModal = document.getElementById('timeRewardModal');
             const trContent = document.getElementById('timeRewardContent');
@@ -905,9 +925,8 @@
 
         // --- SHARED DISCOUNT APPLIER ---
         function applyGlobalDiscount(rate, sourceName) {
-            // Only update if it's a better discount 
-            // e.g., if they had 5% but stuck around for 630s to unlock 15%
-            if (rate > globalSubscriptionDiscount) {
+            // Only update if it's a better discount, OR if it's an equally fun new discovery (like typing VIP overriding the standard EasterEgg msg)
+            if (rate > globalSubscriptionDiscount || (rate === globalSubscriptionDiscount && sourceName === 'VIP Status' && discountSource !== 'VIP Status')) {
                 globalSubscriptionDiscount = rate;
                 discountSource = sourceName;
                 
@@ -915,6 +934,7 @@
                 let msg = `🎉 UNLOCKED: ${percent}% OFF ALL MONTHLY PLANS!`;
                 if(sourceName === 'EasterEgg') msg = `🕵️‍♂️ SECRET FOUND: ${percent}% OFF APPLIED!`;
                 if(sourceName === 'TimeReward') msg = `⏳ FLASH DEAL: ${percent}% OFF APPLIED!`;
+                if(sourceName === 'VIP Status') msg = `👑 VIP STATUS RECOGNIZED: ${percent}% OFF APPLIED!`;
                 showToast(msg);
                 
                 document.querySelectorAll('.monthly-price-display').forEach(el => {
@@ -927,11 +947,14 @@
                     el.classList.add('pop-anim');
                 });
 
-                setTimeout(() => {
-                    document.getElementById('packages').scrollIntoView({ behavior: 'smooth' });
-                }, 500);
-
-                if(!modal.classList.contains('hidden')) updateTotalPrice();
+                // If modal is not open, scroll to packages
+                if(modal.classList.contains('hidden')) {
+                    setTimeout(() => {
+                        document.getElementById('packages').scrollIntoView({ behavior: 'smooth' });
+                    }, 500);
+                } else {
+                    updateTotalPrice();
+                }
             }
         }
 
@@ -1219,6 +1242,7 @@
                         if(discountSource === 'EasterEgg') promoName = "Secret Easter Egg Discount";
                         if(discountSource === 'Loyalty') promoName = "Loyalty Return Discount";
                         if(discountSource === 'TimeReward') promoName = "Flash Deal (15%)";
+                        if(discountSource === 'VIP Status') promoName = "VIP Client Bonus";
                         
                         message += ` (R${currentBasePrice} -> R${discBase} with ${globalSubscriptionDiscount*100}% ${promoName} applied)`;
                     }
